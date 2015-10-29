@@ -1,0 +1,32 @@
+{
+  "name": "ag-grid-webpack-gulp",
+  "version": "1.0.0",
+  "description": "Contains a seed app for webpack with ag-grid and gulp",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wendellm/ag-grid-webpack-gulp.git"
+  },
+  "keywords": [
+    "Angular",
+    "ag-grid",
+    "webpack",
+    "gulp"
+  ],
+  "author": "Wendell Muntslag",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wendellm/ag-grid-webpack-gulp/issues"
+  },
+  "homepage": "https://github.com/wendellm/ag-grid-webpack-gulp#readme",
+  "dependencies": {
+    "ag-grid": "^2.3.4",
+    "angular": "^1.4.7",
+    "gulp": "^3.9.0",
+    "jquery": "^2.1.4",
+    "webpack": "^1.12.2"
+  }
+}
