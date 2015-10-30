@@ -4,6 +4,7 @@
   "description": "Contains a seed app for webpack with ag-grid and gulp",
   "main": "index.js",
   "scripts": {
+    "start": " webpack-dev-server --content-base public/ --colors --progress",
     "test": "test"
   },
   "repository": {
@@ -13,8 +14,7 @@
   "keywords": [
     "Angular",
     "ag-grid",
-    "webpack",
-    "gulp"
+    "webpack"
   ],
   "author": "Wendell Muntslag",
   "license": "ISC",
@@ -25,8 +25,15 @@
   "dependencies": {
     "ag-grid": "^2.3.4",
     "angular": "^1.4.7",
-    "gulp": "^3.9.0",
+    "angular-ui-router": "^0.2.15",
     "jquery": "^2.1.4",
+    "lodash": "^3.10.1",
     "webpack": "^1.12.2"
+  },
+  "devDependencies": {
+    "css-loader": "^0.21.0",
+    "html-loader": "^0.3.0",
+    "ng-cache-loader": "0.0.13",
+    "style-loader": "^0.13.0"
   }
 }
