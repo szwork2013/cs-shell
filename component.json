@@ -1,0 +1,10 @@
+
+{
+	"name": "ag-grid-webpack-gulp",
+	"repo": "wendellm/ag-grid-webpack-gulp",
+	"version": "0.0.1",
+	"dependencies": {
+		"ag-grid-webpack-gulp/config": "*"
+	},
+	"license": "MIT"
+}

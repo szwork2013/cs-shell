@@ -1,14 +1,14 @@
 /**
  * defines angular module cs-app dependencies.
  */
-require("!style!css!./styles/app-style.css");
+require("./styles/app-style.scss");
 
 /**
  * configures angular module cs-app.
  */
 module.exports = function appModule($,angular,_){
     var app = angular.module("app", [
-            "ui.router",
+            require("angular-ui-router"),
             "agGrid",            
         ]);
         app.config(require("./configs/app-config"));

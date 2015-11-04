@@ -1,0 +1,8 @@
+{
+	"name": "config",
+	"repo": "ag-grid-wbapck-gulp/config",
+	"version": "0.0.1",
+	"main": "index.js",
+	"scripts" : ["index.js"],
+	"license": "MIT"		
+}
