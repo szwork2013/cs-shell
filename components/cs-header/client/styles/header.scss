@@ -1,0 +1,13 @@
+@import url("//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css");
+
+.navbar-header {
+	padding-left: 20px;
+}
+
+.navbar-inverse {
+	border-bottom-color: $background-dark;
+}
+
+.dropdown-toggle, navbar-text {
+	padding-left: 10px;
+}

@@ -5,9 +5,7 @@ module.exports = function appConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state("cs", {
             url: "/",
-            template: require("./../partials/app-content.html"),
-            controller: "AppCtrl",
-            controllerAs: "app"
+            template: require("./../partials/app.layout.html")
         });
     $urlRouterProvider.otherwise("/");
   }

@@ -5,11 +5,14 @@ var webpack = require("webpack");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 var ComponentPlugin = require("component-webpack-plugin");
 
+var sassGlobals = require("./framework/client/styles/app.variables");
+var sassVars = JSON.stringify(sassGlobals);
+
 module.exports = {
   devtool: "eval-source-map",
     entry: [
       "webpack-hot-middleware/client?reload=true",
-      path.join(__dirname, "index.js")
+      path.join(__dirname, "framework/index.js")
     ],
     output: {
       path: path.join(__dirname, "/public/"),
@@ -38,7 +41,7 @@ module.exports = {
     module: {
       loaders: [{
         test: /\.scss$/,
-        loaders: ["style", "css", "sass"]
+        loaders: ["style", "css", "sass","jsontosass?" + sassVars]
       },{
         test: /\.js?$/,
         exclude: /node_modules/,
@@ -52,6 +55,21 @@ module.exports = {
       },{ 
         test: /\.html$/, 
         loader: "ng-cache?prefix=[dir]/[dir]" 
-      }]
+      },{ 
+        test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,   
+        loader: "url?limit=10000&mimetype=application/font-woff" },
+      { 
+        test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,  
+        loader: "url?limit=10000&mimetype=application/font-woff" },
+      { 
+        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,    
+        loader: "url?limit=10000&mimetype=application/octet-stream" },
+      { 
+        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,    
+        loader: "file" },
+      { 
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,    
+        loader: "url?limit=10000&mimetype=image/svg+xml" }
+      ]
     }
 };
