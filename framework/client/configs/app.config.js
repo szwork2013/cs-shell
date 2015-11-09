@@ -4,7 +4,7 @@
 module.exports = function appConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state("cs", {
-            url: "/",
+            url: "/cs",
             template: require("./../partials/app.layout.html")
         });
     $urlRouterProvider.otherwise("/");

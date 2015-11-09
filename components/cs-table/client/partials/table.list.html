@@ -1,0 +1,28 @@
+
+<ul class="list-group">
+    <li class="list-group-item">
+        <form name="frmTableAdd" ng-submit="vm.CreateTable(vm.shell.table.selected[0])">
+            <div class="form-group no-margin">
+                <div class="input-group">
+                    <input type="text"
+                           class="form-control"
+                           name="fldTableAddName"
+                           ng-model="vm.name"
+                           placeholder="enter a name and press enter" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-disabled="" ng-click="vm.CreateTable(vm.shell.table.selected[0])">
+                            <i class="glyphicon glyphicon-plus color-primary"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </li>
+    <li ng-if="vm.shell.table.enabled" class="list-group-item list-group-item-header"><section><h5 class="list-group-item-heading">Select a menu</h5></section></li>
+    <li ng-if="vm.shell.table.enabled" class="list-group-item"><span class="badge">{{vm.shell.table.selected[0].fields.length}}</span><a ui-sref="cs.field.page">Fields</a></li>
+    <li class="list-group-item list-group-item-header"><div><h5 class="list-group-item-heading">Select a Table</h5></div></li>
+    <li class="list-group-item" ng-repeat="model in vm.shell.table.models track by model.id">
+        <a href="javascript:void(0)" ng-click="vm.selectTable(model);">{{model.name}}</a>
+        <a href="javascript:void(0)" ng-click="vm.shell.table.service.removeTable(model.id);"><i class="glyphicon glyphicon-remove pull-right"></i></a>
+    </li>
+</ul>

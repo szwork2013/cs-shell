@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app="cs-app" ng-controller="AppController as app">
+	<head>
+		<!--Import Google Icon Font-->
+      	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">	
+	    <!--Let browser know website is optimized for mobile-->
+      	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<title>[CS]</title>
+		<!-- inject:css -->
+		<!-- endinject -->
+	</head>
+	<body>
+		<section>
+			<h1><%= message %></h1>
+			<h2><%= error.status %></h2>
+			<pre><%= error.stack %></pre>
+		</section>
+		<!-- inject:js -->
+		<!-- endinject -->
+	</body>
+</html>

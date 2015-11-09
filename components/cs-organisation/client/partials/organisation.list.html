@@ -1,0 +1,28 @@
+
+<ul class="list-group">
+    <li class="list-group-item">
+        <form name="frmOrganisationAdd" ng-submit="vm.CreateOrganisation(vm.shell.organisation.selected[0])">
+            <div class="form-group no-margin">
+                <div class="input-group">
+                    <input type="text"
+                           class="form-control"
+                           name="fldOrganisationAddName"
+                           ng-model="vm.name"
+                           placeholder="enter a name and press enter" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-disabled="" ng-click="vm.CreateOrganisation(vm.shell.organisation.selected[0])">
+                            <i class="glyphicon glyphicon-plus color-primary"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </li>
+    <li ng-if="vm.shell.organisation.enabled" class="list-group-item list-group-item-header"><section><h5 class="list-group-item-heading">Select a menu</h5></section></li>
+    <li ng-if="vm.shell.organisation.enabled" class="list-group-item"><span class="badge">{{vm.shell.organisation.selected[0].members.length}}</span><a ui-sref="cs.member.page">Members</a></li>
+    <li class="list-group-item list-group-item-header"><div><h5 class="list-group-item-heading">Select a Organisation</h5></div></li>
+    <li class="list-group-item" ng-repeat="model in vm.shell.organisation.models track by model.id">
+        <a href="javascript:void(0)" ng-click="vm.selectOrganisation(model);">{{model.name}}</a>
+        <a href="javascript:void(0)" ng-click="vm.shell.organisation.service.removeOrganisation(model.id);"><i class="glyphicon glyphicon-remove pull-right"></i></a>
+    </li>
+</ul>

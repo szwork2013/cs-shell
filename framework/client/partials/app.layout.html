@@ -6,9 +6,18 @@
 			<cs-menu-item label="Lists" icon="fa-list" route="cs.page.lists"></cs-menu-item>
 			<cs-menu-item label="Boards" icon="fa-table" route="cs.page.boards"></cs-menu-item>
 			<cs-menu-item label="Stars" icon="fa-star" route="cs.page.stars"></cs-menu-item>
+			<li><a ui-sref="cs.table.page">Tables</a></li>
+			<li><a ui-sref="cs.field.page">Fields</a></li>
+			<li><a ui-sref="cs.strip.page">Strips</a></li>
+			<li><a ui-sref="cs.user.page">Users</a></li>
+			<li><a ui-sref="cs.control.page">Controls</a></li>
+			<li><a ui-sref="cs.member.page">Members</a></li>
+			<li><a ui-sref="cs.organisation.page">Organisations</a></li>
 		</cs-app-sidebar>
 		<main class="cs-main cs-no-spaces">
-			<span>{{app.routeString}}</span>
+			<ui-view>
+				<span>{{app.routeString}}</span>
+			</ui-view>
 		</main>
 	</div>
 	<cs-app-footer></cs-app-footer>

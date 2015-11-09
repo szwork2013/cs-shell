@@ -1,0 +1,12 @@
+{
+    "title": "[CS]",
+    "header": "Users List",
+    "database": {
+        "DB_HOST": "localhost",
+        "PORT": "27017"
+    },
+    "api": {
+        "url": "api",
+        "welcomeMessage": "Welcome to the users api"
+    }
+}

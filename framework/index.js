@@ -22,4 +22,4 @@ require("./../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss");
 /**
  * initializes angular module cs-app.
  */
-require("./client/app.module")($,angular,_);
+require("./client/app.module")($, angular, _, config);

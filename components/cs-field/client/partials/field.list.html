@@ -1,0 +1,27 @@
+
+<ul class="list-group">
+    <li class="list-group-item">
+        <form name="frmFieldAdd" ng-submit="vm.CreateField(vm.shell.field.selected[0])">
+            <div class="form-group no-margin">
+                <div class="input-group">
+                    <input type="text"
+                           class="form-control"
+                           name="fldFieldAddName"
+                           ng-model="vm.name"
+                           placeholder="enter a name and press enter" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-disabled="" ng-click="vm.CreateField(vm.shell.field.selected[0])">
+                            <i class="glyphicon glyphicon-plus color-primary"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </li>
+    <li ng-if="vm.shell.field.enabled" class="list-group-item list-group-item-header"><section><h5 class="list-group-item-heading">Select a menu</h5></section></li>
+    <li class="list-group-item list-group-item-header"><div><h5 class="list-group-item-heading">Select a Field</h5></div></li>
+    <li class="list-group-item" ng-repeat="model in vm.shell.field.models track by model.id">
+        <a href="javascript:void(0)" ng-click="vm.selectField(model);">{{model.name}}</a>
+        <a href="javascript:void(0)" ng-click="vm.shell.field.service.removeField(model.id);"><i class="glyphicon glyphicon-remove pull-right"></i></a>
+    </li>
+</ul>

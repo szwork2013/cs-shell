@@ -1,0 +1,30 @@
+
+<ul class="list-group">
+    <li class="list-group-item">
+        <form name="frmStripAdd" ng-submit="vm.CreateStrip(vm.shell.strip.selected[0])">
+            <div class="form-group no-margin">
+                <div class="input-group">
+                    <input type="text"
+                           class="form-control"
+                           name="fldStripAddName"
+                           ng-model="vm.name"
+                           placeholder="enter a name and press enter" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-disabled="" ng-click="vm.CreateStrip(vm.shell.strip.selected[0])">
+                            <i class="glyphicon glyphicon-plus color-primary"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </li>
+    <li ng-if="vm.shell.strip.enabled" class="list-group-item list-group-item-header"><section><h5 class="list-group-item-heading">Select a menu</h5></section></li>
+    <li ng-if="vm.shell.strip.enabled" class="list-group-item"><span class="badge">{{vm.shell.strip.selected[0].children.length}}</span><a ui-sref="cs.strip.page">Children</a></li>
+    <li ng-if="vm.shell.strip.enabled" class="list-group-item"><span class="badge">{{vm.shell.strip.selected[0].members.length}}</span><a ui-sref="cs.member.page">Members</a></li>
+    <li ng-if="vm.shell.strip.enabled" class="list-group-item"><span class="badge">{{vm.shell.strip.selected[0].tables.length}}</span><a ui-sref="cs.table.page">Tables</a></li>
+    <li class="list-group-item list-group-item-header"><div><h5 class="list-group-item-heading">Select a Strip</h5></div></li>
+    <li class="list-group-item" ng-repeat="model in vm.shell.strip.models track by model.id">
+        <a href="javascript:void(0)" ng-click="vm.selectStrip(model);">{{model.name}}</a>
+        <a href="javascript:void(0)" ng-click="vm.shell.strip.service.removeStrip(model.id);"><i class="glyphicon glyphicon-remove pull-right"></i></a>
+    </li>
+</ul>
