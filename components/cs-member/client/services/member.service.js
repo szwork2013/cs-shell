@@ -2,7 +2,7 @@
 /**
  * Initializes angular component module cs-member service.
  */
-module.exports = function($http, api, Member) {
+module.exports = function($http, api, Member, _) {
 	// sets url;
 	var url = api + "/members";
 
@@ -15,7 +15,7 @@ module.exports = function($http, api, Member) {
 	service.getMembers = function () {
 		$http.get(url).then(function(models){
 			var members = [];
-			models.forEach(function(model){
+			_.forEach(models, function(model){
 				members.push(new Member(model));
 			});
 			return members;
@@ -64,4 +64,4 @@ module.exports = function($http, api, Member) {
 	*/
 	return service;
 }
-module.exports.$inject = ["$http", "Api", "Member"];
+module.exports.$inject = ["$http", "Api", "Member", "_"];

@@ -4,15 +4,22 @@
 html, body {
     height: 100%;
 }
+
 body {
     background: $background;
     font-family: "Open Sans", sans-serif;
-    color: $font-color;
-    //padding-top: 75px;
+}
+
+main {
+    overflow: hidden;
 }
 
 .cs-main {
     min-height: 90vh;
+}
+
+.cs-page {
+    padding: 10px;
 }
 
 .cs-no-spaces {

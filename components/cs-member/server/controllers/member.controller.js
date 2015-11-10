@@ -5,8 +5,13 @@
 module.exports = function MemberController(Member) {
     var post = function (req, res) {
         var member = new Member({
-            name: req.body.name,
-            type: req.body.type
+	        name:req.body.name,
+	        isActive:req.body.isActive,
+	        userId:req.body.userId,
+	        stripId:req.body.stripId,
+	        organisationId:req.body.organisationId,
+	        privileges:req.body.privileges,
+	        state:req.body.state,
         });
 
         if (!req.body.name) {

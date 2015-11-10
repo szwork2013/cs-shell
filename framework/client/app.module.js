@@ -31,7 +31,7 @@ module.exports = function appModule($,angular,_, config){
     app.factory("AppService", require("./services/app.service"));
     app.value("$", $);
     app.value("_", _);
-    app.value("Api", config.api.URL)
+    app.value("Api", config.api.url)
     return app;
 }
 

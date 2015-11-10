@@ -18,7 +18,7 @@ module.exports = function(app, config, logger, next){
   app.engine("ejs", engine);
   app.engine("html", engine);
     
-  console.log("App / Booting - 04 - Mounting views");
+  console.log("App / Booting - 04 - APP Mounting views");
   
   next();
 }

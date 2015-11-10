@@ -2,7 +2,7 @@
 /**
  * Initializes angular component module cs-field service.
  */
-module.exports = function($http, api, Field) {
+module.exports = function($http, api, Field, _) {
 	// sets url;
 	var url = api + "/fields";
 
@@ -15,7 +15,7 @@ module.exports = function($http, api, Field) {
 	service.getFields = function () {
 		$http.get(url).then(function(models){
 			var fields = [];
-			models.forEach(function(model){
+			_.forEach(models, function(model){
 				fields.push(new Field(model));
 			});
 			return fields;
@@ -64,4 +64,4 @@ module.exports = function($http, api, Field) {
 	*/
 	return service;
 }
-module.exports.$inject = ["$http", "Api", "Field"];
+module.exports.$inject = ["$http", "Api", "Field", "_"];

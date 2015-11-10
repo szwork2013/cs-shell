@@ -15,7 +15,10 @@ module.exports = function(app, config, logger, next){
   /**
   * Initializes webpack in development.
   */
-  if(config.isProduction) return;
+  if(config.isProduction) {
+    next();
+    return;
+  }
 
   /**
   * Initializes webpack compiler.
@@ -43,4 +46,7 @@ module.exports = function(app, config, logger, next){
   * Wires webpack hot module loader.
   */
   app.use(webpackHotMiddleware(compiler));
+  
+  console.log("App / Booting - 05 - APP Compiling with webpack");
+  next();
 }

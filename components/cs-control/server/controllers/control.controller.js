@@ -5,8 +5,11 @@
 module.exports = function ControlController(Control) {
     var post = function (req, res) {
         var control = new Control({
-            name: req.body.name,
-            type: req.body.type
+	        name:req.body.name,
+	        isActive:req.body.isActive,
+	        type:req.body.type,
+	        extra1:req.body.extra1,
+	        extra2:req.body.extra2,
         });
 
         if (!req.body.name) {

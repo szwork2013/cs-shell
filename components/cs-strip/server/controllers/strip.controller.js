@@ -5,8 +5,10 @@
 module.exports = function StripController(Strip) {
     var post = function (req, res) {
         var strip = new Strip({
-            name: req.body.name,
-            type: req.body.type
+	        name:req.body.name,
+	        isActive:req.body.isActive,
+	        controlId:req.body.controlId,
+	        parentId:req.body.parentId,
         });
 
         if (!req.body.name) {

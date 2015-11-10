@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Module dependencies.
  * 
@@ -12,6 +13,7 @@ var path = require("path");
 var express = require("express");
 var favicon = require("serve-favicon");
 var cookieParser = require("cookie-parser");
+var bodyParser = require("body-parser")
 
 /**
  * Initialize middleware.
@@ -23,6 +25,8 @@ module.exports = function(app, config, logger, next){
   app.use(json());
   app.use(errorHandler()); 
   app.use(express.static(config.paths.www));
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.json());
   //   
   console.log("App / Booting - 02 - Express");
   

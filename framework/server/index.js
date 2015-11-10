@@ -20,6 +20,18 @@ var express = require("express"),
 var boot = bootable(app, config, logger);
 
 /**
+* Configures boot start and error handler;
+*/
+function start(){
+    boot(function ( error ) {
+        if ( error ) {
+            throw error;
+        }
+        console.log("App / Booting - Complete");
+    });
+}
+
+/**
  * Configures environment-specific settings;
  */
 boot.phase(require("./init/00_config"));
@@ -50,33 +62,26 @@ boot.phase(require("./init/04_views"));
 boot.phase(require("./init/05_webpack"));
 
 /**
- * Configures routes;
- */
-boot.phase(require("./init/06_routes"));
-
-/**
  * Configures apis;
  */
-var apis = require(config.paths.components);
-async.each(apis, function(api, done){
+async.each(require(config.paths.components), function(api, done){
     /**
     * Bootstraps api routes to boot phase;
     */
-    api(app, config, logger, done);
-}, start);        
+    boot.phase(api);
+    done();
+}); 
 
 /**
-* Configures boot start and error handler;
-*/
-function start(){
-    boot(function ( error ) {
-        if ( error ) {
-            throw error;
-        }
-        console.log("App / Booting - Complete");
-    });
-}
-   
+ * Configures routes;
+ */
+boot.phase(require("./init/07_routes"));
+
+/**
+ * Starts the boot phases;
+ */
+start(); 
+       
 /**
  * Expose application.
  */

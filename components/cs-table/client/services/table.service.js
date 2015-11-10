@@ -2,7 +2,7 @@
 /**
  * Initializes angular component module cs-table service.
  */
-module.exports = function($http, api, Table) {
+module.exports = function($http, api, Table, _) {
 	// sets url;
 	var url = api + "/tables";
 
@@ -15,7 +15,7 @@ module.exports = function($http, api, Table) {
 	service.getTables = function () {
 		$http.get(url).then(function(models){
 			var tables = [];
-			models.forEach(function(model){
+			_.forEach(models, function(model){
 				tables.push(new Table(model));
 			});
 			return tables;
@@ -64,4 +64,4 @@ module.exports = function($http, api, Table) {
 	*/
 	return service;
 }
-module.exports.$inject = ["$http", "Api", "Table"];
+module.exports.$inject = ["$http", "Api", "Table", "_"];

@@ -49,4 +49,7 @@ module.exports = function(app, config, logger, next){
 	app.get("*", function response(req, res) {
 		res.sendFile(path.join(config.paths.www, "public/index.html"));
 	});
+	
+	console.log("App / Booting - 07 - APP Mounting routes");
+	next();
 }

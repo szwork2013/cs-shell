@@ -36,7 +36,7 @@ var config = {
 		globals		: sassGlobals
 	},
 	api				: {
-		URL			: "api"
+		url			: "api"
 	}
 }
 

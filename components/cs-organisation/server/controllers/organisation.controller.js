@@ -5,8 +5,8 @@
 module.exports = function OrganisationController(Organisation) {
     var post = function (req, res) {
         var organisation = new Organisation({
-            name: req.body.name,
-            type: req.body.type
+	        name:req.body.name,
+	        isActive:req.body.isActive,
         });
 
         if (!req.body.name) {

@@ -2,7 +2,7 @@
 /**
  * Initializes angular component module cs-user service.
  */
-module.exports = function($http, api, User) {
+module.exports = function($http, api, User, _) {
 	// sets url;
 	var url = api + "/users";
 
@@ -15,7 +15,7 @@ module.exports = function($http, api, User) {
 	service.getUsers = function () {
 		$http.get(url).then(function(models){
 			var users = [];
-			models.forEach(function(model){
+			_.forEach(models, function(model){
 				users.push(new User(model));
 			});
 			return users;
@@ -64,4 +64,4 @@ module.exports = function($http, api, User) {
 	*/
 	return service;
 }
-module.exports.$inject = ["$http", "Api", "User"];
+module.exports.$inject = ["$http", "Api", "User", "_"];

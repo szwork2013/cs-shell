@@ -2,7 +2,7 @@
 /**
  * Initializes angular component module cs-organisation service.
  */
-module.exports = function($http, api, Organisation) {
+module.exports = function($http, api, Organisation, _) {
 	// sets url;
 	var url = api + "/organisations";
 
@@ -15,7 +15,7 @@ module.exports = function($http, api, Organisation) {
 	service.getOrganisations = function () {
 		$http.get(url).then(function(models){
 			var organisations = [];
-			models.forEach(function(model){
+			_.forEach(models, function(model){
 				organisations.push(new Organisation(model));
 			});
 			return organisations;
@@ -64,4 +64,4 @@ module.exports = function($http, api, Organisation) {
 	*/
 	return service;
 }
-module.exports.$inject = ["$http", "Api", "Organisation"];
+module.exports.$inject = ["$http", "Api", "Organisation", "_"];

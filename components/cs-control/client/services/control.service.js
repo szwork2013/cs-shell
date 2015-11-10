@@ -2,7 +2,7 @@
 /**
  * Initializes angular component module cs-control service.
  */
-module.exports = function($http, api, Control) {
+module.exports = function($http, api, Control, _) {
 	// sets url;
 	var url = api + "/controls";
 
@@ -15,7 +15,7 @@ module.exports = function($http, api, Control) {
 	service.getControls = function () {
 		$http.get(url).then(function(models){
 			var controls = [];
-			models.forEach(function(model){
+			_.forEach(models, function(model){
 				controls.push(new Control(model));
 			});
 			return controls;
@@ -64,4 +64,4 @@ module.exports = function($http, api, Control) {
 	*/
 	return service;
 }
-module.exports.$inject = ["$http", "Api", "Control"];
+module.exports.$inject = ["$http", "Api", "Control", "_"];

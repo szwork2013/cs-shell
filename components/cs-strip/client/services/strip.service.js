@@ -2,7 +2,7 @@
 /**
  * Initializes angular component module cs-strip service.
  */
-module.exports = function($http, api, Strip) {
+module.exports = function($http, api, Strip, _) {
 	// sets url;
 	var url = api + "/strips";
 
@@ -15,7 +15,7 @@ module.exports = function($http, api, Strip) {
 	service.getStrips = function () {
 		$http.get(url).then(function(models){
 			var strips = [];
-			models.forEach(function(model){
+			_.forEach(models, function(model){
 				strips.push(new Strip(model));
 			});
 			return strips;
@@ -64,4 +64,4 @@ module.exports = function($http, api, Strip) {
 	*/
 	return service;
 }
-module.exports.$inject = ["$http", "Api", "Strip"];
+module.exports.$inject = ["$http", "Api", "Strip", "_"];

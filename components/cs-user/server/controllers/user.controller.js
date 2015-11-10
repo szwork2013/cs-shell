@@ -5,8 +5,13 @@
 module.exports = function UserController(User) {
     var post = function (req, res) {
         var user = new User({
-            name: req.body.name,
-            type: req.body.type
+	        name:req.body.name,
+	        isActive:req.body.isActive,
+	        email:req.body.email,
+	        password:req.body.password,
+	        file:req.body.file,
+	        dob:req.body.dob,
+	        city:req.body.city,
         });
 
         if (!req.body.name) {

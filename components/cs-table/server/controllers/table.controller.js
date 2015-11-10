@@ -5,8 +5,9 @@
 module.exports = function TableController(Table) {
     var post = function (req, res) {
         var table = new Table({
-            name: req.body.name,
-            type: req.body.type
+	        name:req.body.name,
+	        isActive:req.body.isActive,
+	        stripId:req.body.stripId,
         });
 
         if (!req.body.name) {

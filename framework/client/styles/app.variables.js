@@ -1,4 +1,5 @@
 var shader = require("shader");
+
 var vars = {
 	"background"		: "#353535",
 	"font-color"		: "#fff",

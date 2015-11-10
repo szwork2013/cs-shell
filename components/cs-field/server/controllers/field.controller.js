@@ -5,8 +5,10 @@
 module.exports = function FieldController(Field) {
     var post = function (req, res) {
         var field = new Field({
-            name: req.body.name,
-            type: req.body.type
+	        name:req.body.name,
+	        isActive:req.body.isActive,
+	        type:req.body.type,
+	        tableId:req.body.tableId,
         });
 
         if (!req.body.name) {
