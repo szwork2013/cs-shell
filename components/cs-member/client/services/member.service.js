@@ -49,7 +49,7 @@ module.exports = function($http, api, Member, _) {
 	* removes a member model
 	*/
 	service.removeMember = function (id) {
-		return $http.remove(url + "/" + id);
+		return $http.delete(url + "/" + id);
 	};
 
 	/**

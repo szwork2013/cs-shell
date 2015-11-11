@@ -49,7 +49,7 @@ module.exports = function($http, api, Organisation, _) {
 	* removes a organisation model
 	*/
 	service.removeOrganisation = function (id) {
-		return $http.remove(url + "/" + id);
+		return $http.delete(url + "/" + id);
 	};
 
 	/**

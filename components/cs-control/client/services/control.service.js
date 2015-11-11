@@ -49,7 +49,7 @@ module.exports = function($http, api, Control, _) {
 	* removes a control model
 	*/
 	service.removeControl = function (id) {
-		return $http.remove(url + "/" + id);
+		return $http.delete(url + "/" + id);
 	};
 
 	/**

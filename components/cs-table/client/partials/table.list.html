@@ -23,6 +23,6 @@
     <li class="list-group-item list-group-item-header"><div><h5 class="list-group-item-heading">Select a Table</h5></div></li>
     <li class="list-group-item" ng-repeat="model in vm.shell.table.models track by model.id">
         <a href="javascript:void(0)" ng-click="vm.selectTable(model);">{{model.name}}</a>
-        <a href="javascript:void(0)" ng-click="vm.shell.table.service.removeTable(model.id);"><i class="glyphicon glyphicon-remove pull-right"></i></a>
+        <a href="javascript:void(0)" ng-click="vm.shell.table.service.removeTable(model.id);"><i class="fa fa-trash-o pull-right"></i></a>
     </li>
 </ul>

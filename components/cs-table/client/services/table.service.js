@@ -49,7 +49,7 @@ module.exports = function($http, api, Table, _) {
 	* removes a table model
 	*/
 	service.removeTable = function (id) {
-		return $http.remove(url + "/" + id);
+		return $http.delete(url + "/" + id);
 	};
 
 	/**

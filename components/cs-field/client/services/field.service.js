@@ -49,7 +49,7 @@ module.exports = function($http, api, Field, _) {
 	* removes a field model
 	*/
 	service.removeField = function (id) {
-		return $http.remove(url + "/" + id);
+		return $http.delete(url + "/" + id);
 	};
 
 	/**

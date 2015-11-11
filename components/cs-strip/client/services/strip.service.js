@@ -49,7 +49,7 @@ module.exports = function($http, api, Strip, _) {
 	* removes a strip model
 	*/
 	service.removeStrip = function (id) {
-		return $http.remove(url + "/" + id);
+		return $http.delete(url + "/" + id);
 	};
 
 	/**
