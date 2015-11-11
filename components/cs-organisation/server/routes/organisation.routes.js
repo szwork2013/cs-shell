@@ -11,30 +11,21 @@ module.exports = function(Organisation, config) {
     var api = express.Router();
     var organisationController = require("./../controllers/organisation.controller")(Organisation);
 
-    var update = function(req, res) {
-        for (var prop in req.body) {
-            if (req.organisation.hasOwnProperty(prop))
-                req.organisation[prop] = req.body[prop];
-        }
-        req.organisation.save(function(err) {
-            if (err) {
-                res.status(500).send(err);
-            } else {
-                res.json(req.organisation);
-            }
-        });
-    };
-
     api.route("/")
         .post(organisationController.post)
         .get(organisationController.get);
 
+    /**
+     * Middleware that Finds the Organisation by and id for PUT, PATCH, DELETE.
+     */
     api.use("/:organisationId", function(req, res, next) {
         Organisation.findById(req.params.organisationId, function(err, organisation) {
             if (err) {
                 res.status(500).send(err);
             } else if (organisation) {
+                // sets the found organisation for the downstream;
                 req.organisation = organisation;
+                // moves on to the next middleware;
                 next();
             } else {
                 res.status(404).send("Organisation not found");
@@ -47,13 +38,33 @@ module.exports = function(Organisation, config) {
             res.json(req.organisation);
         })
         .put(function(req, res) {
-            update(req, res);
+            // updates all the properties. Will empty out properties which are not present.
+            req.organisation.name = req.body.name;
+            req.organisation.isActive = req.body.isActive;
+            req.organisation.save(function(err) {
+                if (err) {
+                    res.status(500).send(err);
+                } else {
+                    res.json(req.organisation);
+                }
+            });
         })
         .patch(function(req, res) {
+            // only updates the given fields;
             if (req.body._id) {
+                // prevents id from being updated;
                 delete req.body._id;
             }
-            update(req, res);
+            for (var prop in req.body) {
+                req.organisation[prop] = req.body[prop];
+            }
+            req.organisation.save(function(err) {
+                if (err) {
+                    res.status(500).send(err);
+                } else {
+                    res.json(req.organisation);
+                }
+            });
         })
         .delete(function(req, res) {
             req.organisation.remove(function(err) {

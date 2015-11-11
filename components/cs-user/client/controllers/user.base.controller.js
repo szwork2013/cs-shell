@@ -51,8 +51,8 @@ module.exports = function userBaseController(vm, shell, service){
 		}
 		// saves the current user;
 		// creates the model
-		vm.shell.user.service.updateUser
-		.then(onSuccess, onFailure);
+		vm.shell.user.service.updateUser(user)
+			.then(onSuccess, onFailure);
 
 		function onSuccess(model){
 		vm.shell.user.selected[0]=model;

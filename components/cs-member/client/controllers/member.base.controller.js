@@ -51,8 +51,8 @@ module.exports = function memberBaseController(vm, shell, service){
 		}
 		// saves the current member;
 		// creates the model
-		vm.shell.member.service.updateMember
-		.then(onSuccess, onFailure);
+		vm.shell.member.service.updateMember(member)
+			.then(onSuccess, onFailure);
 
 		function onSuccess(model){
 		vm.shell.member.selected[0]=model;

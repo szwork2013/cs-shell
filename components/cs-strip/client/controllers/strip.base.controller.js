@@ -51,8 +51,8 @@ module.exports = function stripBaseController(vm, shell, service){
 		}
 		// saves the current strip;
 		// creates the model
-		vm.shell.strip.service.updateStrip
-		.then(onSuccess, onFailure);
+		vm.shell.strip.service.updateStrip(strip)
+			.then(onSuccess, onFailure);
 
 		function onSuccess(model){
 		vm.shell.strip.selected[0]=model;

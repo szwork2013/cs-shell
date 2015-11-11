@@ -51,8 +51,8 @@ module.exports = function tableBaseController(vm, shell, service){
 		}
 		// saves the current table;
 		// creates the model
-		vm.shell.table.service.updateTable
-		.then(onSuccess, onFailure);
+		vm.shell.table.service.updateTable(table)
+			.then(onSuccess, onFailure);
 
 		function onSuccess(model){
 		vm.shell.table.selected[0]=model;

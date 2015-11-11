@@ -7,7 +7,7 @@ module.exports = function controlRoutes($stateProvider, $urlRouterProvider) {
 		.state("cs.control", {
 			abstract: true,
 			url: "/control",
-			template: "<div ui-view></div>"
+			template: "<cs-page-layout ui-view></cs-page-layout>"
 		})
 		.state("cs.control.page", {
 			url: "/page",

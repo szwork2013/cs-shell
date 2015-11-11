@@ -7,7 +7,7 @@ module.exports = function userRoutes($stateProvider, $urlRouterProvider) {
 		.state("cs.user", {
 			abstract: true,
 			url: "/user",
-			template: "<div ui-view></div>"
+			template: "<cs-page-layout ui-view></cs-page-layout>"
 		})
 		.state("cs.user.page", {
 			url: "/page",

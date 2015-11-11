@@ -7,7 +7,7 @@ module.exports = function fieldRoutes($stateProvider, $urlRouterProvider) {
 		.state("cs.field", {
 			abstract: true,
 			url: "/field",
-			template: "<div ui-view></div>"
+			template: "<cs-page-layout ui-view></cs-page-layout>"
 		})
 		.state("cs.field.page", {
 			url: "/page",

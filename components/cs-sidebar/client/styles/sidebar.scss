@@ -1,11 +1,7 @@
-.cs-app-sidebar {
-	background: $background;
+cs-sidebar {
+	
 	color: white;	
-	float: left;
-	background-color: $background-dark;
-	min-height: 90vh;	
 	padding-top: 30px;
-	width: 200px;
 	
 	.btn:hover {
 		color: white;	

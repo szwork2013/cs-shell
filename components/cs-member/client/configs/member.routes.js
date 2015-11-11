@@ -7,7 +7,7 @@ module.exports = function memberRoutes($stateProvider, $urlRouterProvider) {
 		.state("cs.member", {
 			abstract: true,
 			url: "/member",
-			template: "<div ui-view></div>"
+			template: "<cs-page-layout ui-view></cs-page-layout>"
 		})
 		.state("cs.member.page", {
 			url: "/page",

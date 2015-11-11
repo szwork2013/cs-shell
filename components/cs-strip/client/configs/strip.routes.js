@@ -7,7 +7,7 @@ module.exports = function stripRoutes($stateProvider, $urlRouterProvider) {
 		.state("cs.strip", {
 			abstract: true,
 			url: "/strip",
-			template: "<div ui-view></div>"
+			template: "<cs-page-layout ui-view></cs-page-layout>"
 		})
 		.state("cs.strip.page", {
 			url: "/page",

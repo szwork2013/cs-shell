@@ -9,7 +9,7 @@ var uuid = require("uuid");
  * Initialize module Member model.
  */
 module.exports = mongoose.model("MemberModel", new mongoose.Schema({
-	_id: { type: String , default: uuid.v4()},
+	_id: { type: String , default: function(){uuid.v4();}},
 	name: { type: String },
 	isActive: { type: Boolean },
 	userId: { type: String },
@@ -18,4 +18,3 @@ module.exports = mongoose.model("MemberModel", new mongoose.Schema({
 	privileges: { type: Number },
 	state: { type: Boolean },
 }));
-

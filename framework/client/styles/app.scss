@@ -3,40 +3,57 @@
 @import "~bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 @import "~bootswatch/paper/_variables.scss";
 @import "~bootswatch/paper/_bootswatch.scss";
+@import "app.bootstrap";
     
 html, body {
     height: 100%;
 }
 
 body {
-    background: $background;
+    background: $background-dark;
     font-family: "Open Sans", sans-serif;
-}
-
-main {
     overflow: hidden;
 }
 
-.cs-main {
-    min-height: 90vh;
-}
-
-.cs-page {
-    padding: 10px;
-}
-
-.cs-no-spaces {
+.nopadding {
     padding: 0 !important;
     margin: 0 !important;
 }
 
-// bootstrap overrides;   
-.container-fluid {
-    margin: 0;
-    padding: 0;
-}
-
-.navbar.navbar-static-top {
-  margin-bottom: 0px;
-  padding-right: 15px;
+cs-app {
+    @extend .nopadding;
+    
+    cs-app-layout {
+        @extend .nopadding;
+        
+        cs-app-admin {
+            @extend .nopadding;
+            
+            cs-app-main {
+                @extend .nopadding;
+                
+                cs-app-sidebar {
+                   float: left; 
+                   width: 200px;
+                   min-height: 90vh;
+                   background-color: $background-dark;	
+                   padding-top: 30px;
+                }
+                
+                cs-app-content {
+                    padding: 20px;
+                    height: 90vh;
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    background: white;
+                    display: block;
+                    
+                    cs-page {
+                        margin: 10px;
+                        background: #fff;
+                    }
+                }
+            }
+        }
+    }
 }

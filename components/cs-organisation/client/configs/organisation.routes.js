@@ -7,7 +7,7 @@ module.exports = function organisationRoutes($stateProvider, $urlRouterProvider)
 		.state("cs.organisation", {
 			abstract: true,
 			url: "/organisation",
-			template: "<div ui-view></div>"
+			template: "<cs-page-layout ui-view></cs-page-layout>"
 		})
 		.state("cs.organisation.page", {
 			url: "/page",

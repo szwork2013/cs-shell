@@ -51,8 +51,8 @@ module.exports = function fieldBaseController(vm, shell, service){
 		}
 		// saves the current field;
 		// creates the model
-		vm.shell.field.service.updateField
-		.then(onSuccess, onFailure);
+		vm.shell.field.service.updateField(field)
+			.then(onSuccess, onFailure);
 
 		function onSuccess(model){
 		vm.shell.field.selected[0]=model;

@@ -51,8 +51,8 @@ module.exports = function controlBaseController(vm, shell, service){
 		}
 		// saves the current control;
 		// creates the model
-		vm.shell.control.service.updateControl
-		.then(onSuccess, onFailure);
+		vm.shell.control.service.updateControl(control)
+			.then(onSuccess, onFailure);
 
 		function onSuccess(model){
 		vm.shell.control.selected[0]=model;

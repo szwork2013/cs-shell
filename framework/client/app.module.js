@@ -9,6 +9,9 @@ require("./styles/app.scss");
 module.exports = function appModule($,angular,_, config){
     var app = angular.module("cs.app", [
         "agGrid",
+        "ngScrollbar",
+        require("angular-formly"),
+        require("angular-formly-templates-bootstrap"),
         require("angular-ui-router"),
         require("components/cs-shell-core").name,
         
@@ -28,6 +31,10 @@ module.exports = function appModule($,angular,_, config){
     app.config(require("./configs/app.config"));
     app.controller("AppController", require("./controllers/app.controller"));
     app.directive("csApp", require("./directives/app.directive"));
+    app.directive("csAppContent", require("./directives/app.content.directive"));
+    
+    app.directive("csMainHeight", require("./directives/app.main.directive"));   
+
     app.factory("AppService", require("./services/app.service"));
     app.value("$", $);
     app.value("_", _);

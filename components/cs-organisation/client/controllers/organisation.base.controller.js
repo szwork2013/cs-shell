@@ -51,8 +51,8 @@ module.exports = function organisationBaseController(vm, shell, service){
 		}
 		// saves the current organisation;
 		// creates the model
-		vm.shell.organisation.service.updateOrganisation
-		.then(onSuccess, onFailure);
+		vm.shell.organisation.service.updateOrganisation(organisation)
+			.then(onSuccess, onFailure);
 
 		function onSuccess(model){
 		vm.shell.organisation.selected[0]=model;

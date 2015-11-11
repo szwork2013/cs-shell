@@ -19,6 +19,12 @@ require("./../node_modules/ag-grid/dist/theme-fresh.css");
 require("./../node_modules/bootstrap-sass/assets/javascripts/bootstrap.js");
 
 /**
+ * ng scrollbar
+ */
+require("./../node_modules/ng-scrollbar/dist/ng-scrollbar.js");
+require("./../node_modules/ng-scrollbar/dist/ng-scrollbar.css");
+
+/**
  * initializes angular module cs-app.
  */
 require("./client/app.module")($, angular, _, config);
