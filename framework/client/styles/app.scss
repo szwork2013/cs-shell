@@ -1,6 +1,9 @@
-// @import 'app.variables';
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
-
+@import "~bootstrap-sass/assets/stylesheets/_bootstrap-sprockets.scss";
+@import "~bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+@import "~bootswatch/paper/_variables.scss";
+@import "~bootswatch/paper/_bootswatch.scss";
+    
 html, body {
     height: 100%;
 }

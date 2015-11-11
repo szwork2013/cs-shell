@@ -49,6 +49,9 @@ var webpackConfig = {
           test: /\.css$/, 
           loader: "style!css" 
         },{ 
+          test: /\.less$/, 
+          loader: "style!css!less" 
+        },{ 
           test: /\.html$/, 
           loader: "ng-cache?prefix=[dir]/[dir]" 
         },{ 
