@@ -4,10 +4,11 @@
 */
 module.exports = function tableBaseController(vm, shell, service){
 	/**
-	* setting table shell services
+	* setting table shell service varuables
 	*/
 	if(!vm.shell) vm.shell = shell;
 	if(!vm.shell.table) vm.shell.table = { selected: [], models: [], service: service};
+	vm.base = "table:base:controller";
 	
 	/**
 	* adds a new table with the given id
@@ -15,28 +16,24 @@ module.exports = function tableBaseController(vm, shell, service){
 	vm.createTable = function (tableId){
 		// checks for an id if not sets one;
 		if(!tableId) tableId = vm.shell.newId();
-		// checks if the current needs to be saved
-		if(vm.shell.table.isDirty){
-			vm.updateTable(vm.shell.table.selected[0]);
-		}
 		// sets new table;
 		vm.shell.table.selected[0] = {
 			id:tableId
 		}
 		// creates the model
-		vm.shell.table.service.createTable
-			.then(onSuccess, onFailure);
+		vm.shell.table.service.createTable(table, onCreated);
 
-		function onSuccess(model){
-			vm.shell.table.selected[0]=model;
+		function onCreated(model){
+			vm.selectTable(model);
 			// sets add new table event arguments;
 			var args = {
 				"channel": "table",
-				"topic"  : "create",
-				"data"   : vm.shell.table.selected[0]
+				"topic"  : "create:event",
+				"data"   : model
 			}
 			// publishes the add new table event;
-			vm.shell.postal.publish(args);
+			vm.shell.debug(vm.base + ":create:event:published:"+ model.id);
+			vm.shell.postal.publish(args);			
 		}
 	}
 
@@ -51,19 +48,19 @@ module.exports = function tableBaseController(vm, shell, service){
 		}
 		// saves the current table;
 		// creates the model
-		vm.shell.table.service.updateTable(table)
-			.then(onSuccess, onFailure);
+		vm.shell.table.service.updateTable(table, onUpdated);
 
-		function onSuccess(model){
-		vm.shell.table.selected[0]=model;
-		// sets add new table event arguments;
-		var args = {
-			"channel": "table",
-			"topic"  : "update",
-			"data"   : vm.shell.table.selected[0]
-		}
-		// publishes the add new table event;
-		vm.shell.postal.publish(args);
+		function onUpdated(model){
+			vm.selectTable(model);
+			// sets add new table event arguments;
+			var args = {
+				"channel": "table",
+				"topic"  : "update:event",
+				"data"   : model
+			}
+			// publishes the add new table event;
+			vm.shell.debug(vm.base + ":update:event:published:"+ model.id);
+			vm.shell.postal.publish(args);			
 		}
 	}
 
@@ -92,11 +89,12 @@ module.exports = function tableBaseController(vm, shell, service){
 		// sets remove table event arguments;
 		var args = {
 			"channel": "table",
-			"topic"  : "remove",
+			"topic"  : "remove:event",
 			"data"   : table
 		}
 		// publishes the remove table event;
-		vm.shell.postal.publish(args);
+		vm.shell.debug(vm.base + ":remove:event:published"+ table.id);
+		vm.shell.postal.publish(args);		
 	}
 
 	/**
@@ -111,11 +109,12 @@ module.exports = function tableBaseController(vm, shell, service){
 		// sets select table event arguments;
 		var args = {
 			"channel": "table",
-			"topic"  : "select",
+			"topic"  : "select:event",
 			"data"   : table
 		}
 		// publishes the select table event;
-		vm.shell.postal.publish(args);
+		vm.shell.debug(vm.base + ":select:event:published:"+ table.id);
+		vm.shell.postal.publish(args);		
 	}
 
 	/**

@@ -4,10 +4,11 @@
 */
 module.exports = function memberBaseController(vm, shell, service){
 	/**
-	* setting member shell services
+	* setting member shell service varuables
 	*/
 	if(!vm.shell) vm.shell = shell;
 	if(!vm.shell.member) vm.shell.member = { selected: [], models: [], service: service};
+	vm.base = "member:base:controller";
 	
 	/**
 	* adds a new member with the given id
@@ -15,28 +16,24 @@ module.exports = function memberBaseController(vm, shell, service){
 	vm.createMember = function (memberId){
 		// checks for an id if not sets one;
 		if(!memberId) memberId = vm.shell.newId();
-		// checks if the current needs to be saved
-		if(vm.shell.member.isDirty){
-			vm.updateMember(vm.shell.member.selected[0]);
-		}
 		// sets new member;
 		vm.shell.member.selected[0] = {
 			id:memberId
 		}
 		// creates the model
-		vm.shell.member.service.createMember
-			.then(onSuccess, onFailure);
+		vm.shell.member.service.createMember(member, onCreated);
 
-		function onSuccess(model){
-			vm.shell.member.selected[0]=model;
+		function onCreated(model){
+			vm.selectMember(model);
 			// sets add new member event arguments;
 			var args = {
 				"channel": "member",
-				"topic"  : "create",
-				"data"   : vm.shell.member.selected[0]
+				"topic"  : "create:event",
+				"data"   : model
 			}
 			// publishes the add new member event;
-			vm.shell.postal.publish(args);
+			vm.shell.debug(vm.base + ":create:event:published:"+ model.id);
+			vm.shell.postal.publish(args);			
 		}
 	}
 
@@ -51,19 +48,19 @@ module.exports = function memberBaseController(vm, shell, service){
 		}
 		// saves the current member;
 		// creates the model
-		vm.shell.member.service.updateMember(member)
-			.then(onSuccess, onFailure);
+		vm.shell.member.service.updateMember(member, onUpdated);
 
-		function onSuccess(model){
-		vm.shell.member.selected[0]=model;
-		// sets add new member event arguments;
-		var args = {
-			"channel": "member",
-			"topic"  : "update",
-			"data"   : vm.shell.member.selected[0]
-		}
-		// publishes the add new member event;
-		vm.shell.postal.publish(args);
+		function onUpdated(model){
+			vm.selectMember(model);
+			// sets add new member event arguments;
+			var args = {
+				"channel": "member",
+				"topic"  : "update:event",
+				"data"   : model
+			}
+			// publishes the add new member event;
+			vm.shell.debug(vm.base + ":update:event:published:"+ model.id);
+			vm.shell.postal.publish(args);			
 		}
 	}
 
@@ -92,11 +89,12 @@ module.exports = function memberBaseController(vm, shell, service){
 		// sets remove member event arguments;
 		var args = {
 			"channel": "member",
-			"topic"  : "remove",
+			"topic"  : "remove:event",
 			"data"   : member
 		}
 		// publishes the remove member event;
-		vm.shell.postal.publish(args);
+		vm.shell.debug(vm.base + ":remove:event:published"+ member.id);
+		vm.shell.postal.publish(args);		
 	}
 
 	/**
@@ -111,11 +109,12 @@ module.exports = function memberBaseController(vm, shell, service){
 		// sets select member event arguments;
 		var args = {
 			"channel": "member",
-			"topic"  : "select",
+			"topic"  : "select:event",
 			"data"   : member
 		}
 		// publishes the select member event;
-		vm.shell.postal.publish(args);
+		vm.shell.debug(vm.base + ":select:event:published:"+ member.id);
+		vm.shell.postal.publish(args);		
 	}
 
 	/**

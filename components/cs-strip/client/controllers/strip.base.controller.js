@@ -4,10 +4,11 @@
 */
 module.exports = function stripBaseController(vm, shell, service){
 	/**
-	* setting strip shell services
+	* setting strip shell service varuables
 	*/
 	if(!vm.shell) vm.shell = shell;
 	if(!vm.shell.strip) vm.shell.strip = { selected: [], models: [], service: service};
+	vm.base = "strip:base:controller";
 	
 	/**
 	* adds a new strip with the given id
@@ -15,28 +16,24 @@ module.exports = function stripBaseController(vm, shell, service){
 	vm.createStrip = function (stripId){
 		// checks for an id if not sets one;
 		if(!stripId) stripId = vm.shell.newId();
-		// checks if the current needs to be saved
-		if(vm.shell.strip.isDirty){
-			vm.updateStrip(vm.shell.strip.selected[0]);
-		}
 		// sets new strip;
 		vm.shell.strip.selected[0] = {
 			id:stripId
 		}
 		// creates the model
-		vm.shell.strip.service.createStrip
-			.then(onSuccess, onFailure);
+		vm.shell.strip.service.createStrip(strip, onCreated);
 
-		function onSuccess(model){
-			vm.shell.strip.selected[0]=model;
+		function onCreated(model){
+			vm.selectStrip(model);
 			// sets add new strip event arguments;
 			var args = {
 				"channel": "strip",
-				"topic"  : "create",
-				"data"   : vm.shell.strip.selected[0]
+				"topic"  : "create:event",
+				"data"   : model
 			}
 			// publishes the add new strip event;
-			vm.shell.postal.publish(args);
+			vm.shell.debug(vm.base + ":create:event:published:"+ model.id);
+			vm.shell.postal.publish(args);			
 		}
 	}
 
@@ -51,19 +48,19 @@ module.exports = function stripBaseController(vm, shell, service){
 		}
 		// saves the current strip;
 		// creates the model
-		vm.shell.strip.service.updateStrip(strip)
-			.then(onSuccess, onFailure);
+		vm.shell.strip.service.updateStrip(strip, onUpdated);
 
-		function onSuccess(model){
-		vm.shell.strip.selected[0]=model;
-		// sets add new strip event arguments;
-		var args = {
-			"channel": "strip",
-			"topic"  : "update",
-			"data"   : vm.shell.strip.selected[0]
-		}
-		// publishes the add new strip event;
-		vm.shell.postal.publish(args);
+		function onUpdated(model){
+			vm.selectStrip(model);
+			// sets add new strip event arguments;
+			var args = {
+				"channel": "strip",
+				"topic"  : "update:event",
+				"data"   : model
+			}
+			// publishes the add new strip event;
+			vm.shell.debug(vm.base + ":update:event:published:"+ model.id);
+			vm.shell.postal.publish(args);			
 		}
 	}
 
@@ -92,11 +89,12 @@ module.exports = function stripBaseController(vm, shell, service){
 		// sets remove strip event arguments;
 		var args = {
 			"channel": "strip",
-			"topic"  : "remove",
+			"topic"  : "remove:event",
 			"data"   : strip
 		}
 		// publishes the remove strip event;
-		vm.shell.postal.publish(args);
+		vm.shell.debug(vm.base + ":remove:event:published"+ strip.id);
+		vm.shell.postal.publish(args);		
 	}
 
 	/**
@@ -111,11 +109,12 @@ module.exports = function stripBaseController(vm, shell, service){
 		// sets select strip event arguments;
 		var args = {
 			"channel": "strip",
-			"topic"  : "select",
+			"topic"  : "select:event",
 			"data"   : strip
 		}
 		// publishes the select strip event;
-		vm.shell.postal.publish(args);
+		vm.shell.debug(vm.base + ":select:event:published:"+ strip.id);
+		vm.shell.postal.publish(args);		
 	}
 
 	/**

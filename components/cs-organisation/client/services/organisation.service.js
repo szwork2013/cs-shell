@@ -12,37 +12,64 @@ module.exports = function($http, api, Organisation, _) {
 	/**
 	* gets all organisation models
 	*/
-	service.getOrganisations = function () {
-		$http.get(url).then(function(models){
-			var organisations = [];
-			_.forEach(models, function(model){
-				organisations.push(new Organisation(model));
+	service.getOrganisations = function (cb) {
+		$http.get(url).then(function(result){
+			var models = [];
+			_.forEach(result.data, function(model){
+				models.push(new Organisation(model));
 			});
-			return organisations;
+			if(!cb){
+				return models;
+			}
+			else {
+				cb(models)
+			}			
 		},onError);
 	};
 
 	/**
 	* gets a organisation model by id
 	*/
-	service.getOrganisation = function (id) {
-		$http.get(url + "/" + id).then(function(model){
-			return new Organisation(model);
+	service.getOrganisation = function (id, cb) {
+		$http.get(url + "/" + id).then(function(result){
+			var model = new Organisation(result.data);
+			if(!cb){
+				return model;
+			}
+			else {
+				cb(model)
+			}
 		},onError);
 	};
 
 	/**
 	* creates a new organisation model
 	*/
-	service.createOrganisation = function (model) {
-		return $http.post(url, model);
+	service.createOrganisation = function (model, cb) {
+		$http.post(url, model).then(function(result){
+			_.extend(model, result.data);
+			if(!cb){
+				return model;
+			}
+			else {
+				cb(model)
+			}
+		},onError);
 	};
 
 	/**
 	* updates a organisation model
 	*/
-	service.updateOrganisation = function (model) {
-		return $http.put(url + "/" + model.id, model);
+	service.updateOrganisation = function (model, cb) {
+		$http.put(url + "/" + model.id, model).then(function(result){
+			_.extend(model, result.data);
+			if(!cb){
+				return model;
+			}
+			else {
+				cb(model)
+			}
+		},onError);
 	};
 
 	/**

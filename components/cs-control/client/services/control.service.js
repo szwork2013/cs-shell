@@ -12,37 +12,64 @@ module.exports = function($http, api, Control, _) {
 	/**
 	* gets all control models
 	*/
-	service.getControls = function () {
-		$http.get(url).then(function(models){
-			var controls = [];
-			_.forEach(models, function(model){
-				controls.push(new Control(model));
+	service.getControls = function (cb) {
+		$http.get(url).then(function(result){
+			var models = [];
+			_.forEach(result.data, function(model){
+				models.push(new Control(model));
 			});
-			return controls;
+			if(!cb){
+				return models;
+			}
+			else {
+				cb(models)
+			}			
 		},onError);
 	};
 
 	/**
 	* gets a control model by id
 	*/
-	service.getControl = function (id) {
-		$http.get(url + "/" + id).then(function(model){
-			return new Control(model);
+	service.getControl = function (id, cb) {
+		$http.get(url + "/" + id).then(function(result){
+			var model = new Control(result.data);
+			if(!cb){
+				return model;
+			}
+			else {
+				cb(model)
+			}
 		},onError);
 	};
 
 	/**
 	* creates a new control model
 	*/
-	service.createControl = function (model) {
-		return $http.post(url, model);
+	service.createControl = function (model, cb) {
+		$http.post(url, model).then(function(result){
+			_.extend(model, result.data);
+			if(!cb){
+				return model;
+			}
+			else {
+				cb(model)
+			}
+		},onError);
 	};
 
 	/**
 	* updates a control model
 	*/
-	service.updateControl = function (model) {
-		return $http.put(url + "/" + model.id, model);
+	service.updateControl = function (model, cb) {
+		$http.put(url + "/" + model.id, model).then(function(result){
+			_.extend(model, result.data);
+			if(!cb){
+				return model;
+			}
+			else {
+				cb(model)
+			}
+		},onError);
 	};
 
 	/**

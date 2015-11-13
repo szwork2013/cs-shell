@@ -4,10 +4,11 @@
 */
 module.exports = function fieldBaseController(vm, shell, service){
 	/**
-	* setting field shell services
+	* setting field shell service varuables
 	*/
 	if(!vm.shell) vm.shell = shell;
 	if(!vm.shell.field) vm.shell.field = { selected: [], models: [], service: service};
+	vm.base = "field:base:controller";
 	
 	/**
 	* adds a new field with the given id
@@ -15,28 +16,24 @@ module.exports = function fieldBaseController(vm, shell, service){
 	vm.createField = function (fieldId){
 		// checks for an id if not sets one;
 		if(!fieldId) fieldId = vm.shell.newId();
-		// checks if the current needs to be saved
-		if(vm.shell.field.isDirty){
-			vm.updateField(vm.shell.field.selected[0]);
-		}
 		// sets new field;
 		vm.shell.field.selected[0] = {
 			id:fieldId
 		}
 		// creates the model
-		vm.shell.field.service.createField
-			.then(onSuccess, onFailure);
+		vm.shell.field.service.createField(field, onCreated);
 
-		function onSuccess(model){
-			vm.shell.field.selected[0]=model;
+		function onCreated(model){
+			vm.selectField(model);
 			// sets add new field event arguments;
 			var args = {
 				"channel": "field",
-				"topic"  : "create",
-				"data"   : vm.shell.field.selected[0]
+				"topic"  : "create:event",
+				"data"   : model
 			}
 			// publishes the add new field event;
-			vm.shell.postal.publish(args);
+			vm.shell.debug(vm.base + ":create:event:published:"+ model.id);
+			vm.shell.postal.publish(args);			
 		}
 	}
 
@@ -51,19 +48,19 @@ module.exports = function fieldBaseController(vm, shell, service){
 		}
 		// saves the current field;
 		// creates the model
-		vm.shell.field.service.updateField(field)
-			.then(onSuccess, onFailure);
+		vm.shell.field.service.updateField(field, onUpdated);
 
-		function onSuccess(model){
-		vm.shell.field.selected[0]=model;
-		// sets add new field event arguments;
-		var args = {
-			"channel": "field",
-			"topic"  : "update",
-			"data"   : vm.shell.field.selected[0]
-		}
-		// publishes the add new field event;
-		vm.shell.postal.publish(args);
+		function onUpdated(model){
+			vm.selectField(model);
+			// sets add new field event arguments;
+			var args = {
+				"channel": "field",
+				"topic"  : "update:event",
+				"data"   : model
+			}
+			// publishes the add new field event;
+			vm.shell.debug(vm.base + ":update:event:published:"+ model.id);
+			vm.shell.postal.publish(args);			
 		}
 	}
 
@@ -92,11 +89,12 @@ module.exports = function fieldBaseController(vm, shell, service){
 		// sets remove field event arguments;
 		var args = {
 			"channel": "field",
-			"topic"  : "remove",
+			"topic"  : "remove:event",
 			"data"   : field
 		}
 		// publishes the remove field event;
-		vm.shell.postal.publish(args);
+		vm.shell.debug(vm.base + ":remove:event:published"+ field.id);
+		vm.shell.postal.publish(args);		
 	}
 
 	/**
@@ -111,11 +109,12 @@ module.exports = function fieldBaseController(vm, shell, service){
 		// sets select field event arguments;
 		var args = {
 			"channel": "field",
-			"topic"  : "select",
+			"topic"  : "select:event",
 			"data"   : field
 		}
 		// publishes the select field event;
-		vm.shell.postal.publish(args);
+		vm.shell.debug(vm.base + ":select:event:published:"+ field.id);
+		vm.shell.postal.publish(args);		
 	}
 
 	/**

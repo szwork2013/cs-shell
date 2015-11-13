@@ -12,37 +12,64 @@ module.exports = function($http, api, Strip, _) {
 	/**
 	* gets all strip models
 	*/
-	service.getStrips = function () {
-		$http.get(url).then(function(models){
-			var strips = [];
-			_.forEach(models, function(model){
-				strips.push(new Strip(model));
+	service.getStrips = function (cb) {
+		$http.get(url).then(function(result){
+			var models = [];
+			_.forEach(result.data, function(model){
+				models.push(new Strip(model));
 			});
-			return strips;
+			if(!cb){
+				return models;
+			}
+			else {
+				cb(models)
+			}			
 		},onError);
 	};
 
 	/**
 	* gets a strip model by id
 	*/
-	service.getStrip = function (id) {
-		$http.get(url + "/" + id).then(function(model){
-			return new Strip(model);
+	service.getStrip = function (id, cb) {
+		$http.get(url + "/" + id).then(function(result){
+			var model = new Strip(result.data);
+			if(!cb){
+				return model;
+			}
+			else {
+				cb(model)
+			}
 		},onError);
 	};
 
 	/**
 	* creates a new strip model
 	*/
-	service.createStrip = function (model) {
-		return $http.post(url, model);
+	service.createStrip = function (model, cb) {
+		$http.post(url, model).then(function(result){
+			_.extend(model, result.data);
+			if(!cb){
+				return model;
+			}
+			else {
+				cb(model)
+			}
+		},onError);
 	};
 
 	/**
 	* updates a strip model
 	*/
-	service.updateStrip = function (model) {
-		return $http.put(url + "/" + model.id, model);
+	service.updateStrip = function (model, cb) {
+		$http.put(url + "/" + model.id, model).then(function(result){
+			_.extend(model, result.data);
+			if(!cb){
+				return model;
+			}
+			else {
+				cb(model)
+			}
+		},onError);
 	};
 
 	/**

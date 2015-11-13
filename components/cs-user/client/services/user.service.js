@@ -12,37 +12,64 @@ module.exports = function($http, api, User, _) {
 	/**
 	* gets all user models
 	*/
-	service.getUsers = function () {
-		$http.get(url).then(function(models){
-			var users = [];
-			_.forEach(models, function(model){
-				users.push(new User(model));
+	service.getUsers = function (cb) {
+		$http.get(url).then(function(result){
+			var models = [];
+			_.forEach(result.data, function(model){
+				models.push(new User(model));
 			});
-			return users;
+			if(!cb){
+				return models;
+			}
+			else {
+				cb(models)
+			}			
 		},onError);
 	};
 
 	/**
 	* gets a user model by id
 	*/
-	service.getUser = function (id) {
-		$http.get(url + "/" + id).then(function(model){
-			return new User(model);
+	service.getUser = function (id, cb) {
+		$http.get(url + "/" + id).then(function(result){
+			var model = new User(result.data);
+			if(!cb){
+				return model;
+			}
+			else {
+				cb(model)
+			}
 		},onError);
 	};
 
 	/**
 	* creates a new user model
 	*/
-	service.createUser = function (model) {
-		return $http.post(url, model);
+	service.createUser = function (model, cb) {
+		$http.post(url, model).then(function(result){
+			_.extend(model, result.data);
+			if(!cb){
+				return model;
+			}
+			else {
+				cb(model)
+			}
+		},onError);
 	};
 
 	/**
 	* updates a user model
 	*/
-	service.updateUser = function (model) {
-		return $http.put(url + "/" + model.id, model);
+	service.updateUser = function (model, cb) {
+		$http.put(url + "/" + model.id, model).then(function(result){
+			_.extend(model, result.data);
+			if(!cb){
+				return model;
+			}
+			else {
+				cb(model)
+			}
+		},onError);
 	};
 
 	/**

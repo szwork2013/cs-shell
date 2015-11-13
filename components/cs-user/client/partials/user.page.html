@@ -1,7 +1,18 @@
 
-<cs-page class="cs-user-page animated fadeInRight">
-    <cs-user-grid class="row"></cs-user-grid>
-    <cs-user-list class="row"></cs-user-list>
-    <cs-user-form class="row"></cs-user-form>
-    <cs-user-card class="row"></cs-user-card>
+<cs-page class="cs-user-page container animated fadeInRight">
+	<div class="row">
+		<div class="page-header">
+			<h1>Page <small>manage Users</small></h1>
+		</div>
+	</div>    
+	<div class="row">
+		<div class="col-sm-6 col-md-8">
+			<cs-user-grid></cs-user-grid>
+			<cs-user-form></cs-user-form>          
+			<cs-user-card></cs-user-card>
+		</div>
+		<div class="col-sm-6 col-md-4">
+			<cs-user-list></cs-user-list>
+		</div>
+	</div>    
 </cs-page>

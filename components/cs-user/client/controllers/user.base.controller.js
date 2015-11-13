@@ -4,10 +4,11 @@
 */
 module.exports = function userBaseController(vm, shell, service){
 	/**
-	* setting user shell services
+	* setting user shell service varuables
 	*/
 	if(!vm.shell) vm.shell = shell;
 	if(!vm.shell.user) vm.shell.user = { selected: [], models: [], service: service};
+	vm.base = "user:base:controller";
 	
 	/**
 	* adds a new user with the given id
@@ -15,28 +16,24 @@ module.exports = function userBaseController(vm, shell, service){
 	vm.createUser = function (userId){
 		// checks for an id if not sets one;
 		if(!userId) userId = vm.shell.newId();
-		// checks if the current needs to be saved
-		if(vm.shell.user.isDirty){
-			vm.updateUser(vm.shell.user.selected[0]);
-		}
 		// sets new user;
 		vm.shell.user.selected[0] = {
 			id:userId
 		}
 		// creates the model
-		vm.shell.user.service.createUser
-			.then(onSuccess, onFailure);
+		vm.shell.user.service.createUser(user, onCreated);
 
-		function onSuccess(model){
-			vm.shell.user.selected[0]=model;
+		function onCreated(model){
+			vm.selectUser(model);
 			// sets add new user event arguments;
 			var args = {
 				"channel": "user",
-				"topic"  : "create",
-				"data"   : vm.shell.user.selected[0]
+				"topic"  : "create:event",
+				"data"   : model
 			}
 			// publishes the add new user event;
-			vm.shell.postal.publish(args);
+			vm.shell.debug(vm.base + ":create:event:published:"+ model.id);
+			vm.shell.postal.publish(args);			
 		}
 	}
 
@@ -51,19 +48,19 @@ module.exports = function userBaseController(vm, shell, service){
 		}
 		// saves the current user;
 		// creates the model
-		vm.shell.user.service.updateUser(user)
-			.then(onSuccess, onFailure);
+		vm.shell.user.service.updateUser(user, onUpdated);
 
-		function onSuccess(model){
-		vm.shell.user.selected[0]=model;
-		// sets add new user event arguments;
-		var args = {
-			"channel": "user",
-			"topic"  : "update",
-			"data"   : vm.shell.user.selected[0]
-		}
-		// publishes the add new user event;
-		vm.shell.postal.publish(args);
+		function onUpdated(model){
+			vm.selectUser(model);
+			// sets add new user event arguments;
+			var args = {
+				"channel": "user",
+				"topic"  : "update:event",
+				"data"   : model
+			}
+			// publishes the add new user event;
+			vm.shell.debug(vm.base + ":update:event:published:"+ model.id);
+			vm.shell.postal.publish(args);			
 		}
 	}
 
@@ -92,11 +89,12 @@ module.exports = function userBaseController(vm, shell, service){
 		// sets remove user event arguments;
 		var args = {
 			"channel": "user",
-			"topic"  : "remove",
+			"topic"  : "remove:event",
 			"data"   : user
 		}
 		// publishes the remove user event;
-		vm.shell.postal.publish(args);
+		vm.shell.debug(vm.base + ":remove:event:published"+ user.id);
+		vm.shell.postal.publish(args);		
 	}
 
 	/**
@@ -111,11 +109,12 @@ module.exports = function userBaseController(vm, shell, service){
 		// sets select user event arguments;
 		var args = {
 			"channel": "user",
-			"topic"  : "select",
+			"topic"  : "select:event",
 			"data"   : user
 		}
 		// publishes the select user event;
-		vm.shell.postal.publish(args);
+		vm.shell.debug(vm.base + ":select:event:published:"+ user.id);
+		vm.shell.postal.publish(args);		
 	}
 
 	/**

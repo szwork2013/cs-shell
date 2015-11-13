@@ -4,10 +4,11 @@
 */
 module.exports = function organisationBaseController(vm, shell, service){
 	/**
-	* setting organisation shell services
+	* setting organisation shell service varuables
 	*/
 	if(!vm.shell) vm.shell = shell;
 	if(!vm.shell.organisation) vm.shell.organisation = { selected: [], models: [], service: service};
+	vm.base = "organisation:base:controller";
 	
 	/**
 	* adds a new organisation with the given id
@@ -15,28 +16,24 @@ module.exports = function organisationBaseController(vm, shell, service){
 	vm.createOrganisation = function (organisationId){
 		// checks for an id if not sets one;
 		if(!organisationId) organisationId = vm.shell.newId();
-		// checks if the current needs to be saved
-		if(vm.shell.organisation.isDirty){
-			vm.updateOrganisation(vm.shell.organisation.selected[0]);
-		}
 		// sets new organisation;
 		vm.shell.organisation.selected[0] = {
 			id:organisationId
 		}
 		// creates the model
-		vm.shell.organisation.service.createOrganisation
-			.then(onSuccess, onFailure);
+		vm.shell.organisation.service.createOrganisation(organisation, onCreated);
 
-		function onSuccess(model){
-			vm.shell.organisation.selected[0]=model;
+		function onCreated(model){
+			vm.selectOrganisation(model);
 			// sets add new organisation event arguments;
 			var args = {
 				"channel": "organisation",
-				"topic"  : "create",
-				"data"   : vm.shell.organisation.selected[0]
+				"topic"  : "create:event",
+				"data"   : model
 			}
 			// publishes the add new organisation event;
-			vm.shell.postal.publish(args);
+			vm.shell.debug(vm.base + ":create:event:published:"+ model.id);
+			vm.shell.postal.publish(args);			
 		}
 	}
 
@@ -51,19 +48,19 @@ module.exports = function organisationBaseController(vm, shell, service){
 		}
 		// saves the current organisation;
 		// creates the model
-		vm.shell.organisation.service.updateOrganisation(organisation)
-			.then(onSuccess, onFailure);
+		vm.shell.organisation.service.updateOrganisation(organisation, onUpdated);
 
-		function onSuccess(model){
-		vm.shell.organisation.selected[0]=model;
-		// sets add new organisation event arguments;
-		var args = {
-			"channel": "organisation",
-			"topic"  : "update",
-			"data"   : vm.shell.organisation.selected[0]
-		}
-		// publishes the add new organisation event;
-		vm.shell.postal.publish(args);
+		function onUpdated(model){
+			vm.selectOrganisation(model);
+			// sets add new organisation event arguments;
+			var args = {
+				"channel": "organisation",
+				"topic"  : "update:event",
+				"data"   : model
+			}
+			// publishes the add new organisation event;
+			vm.shell.debug(vm.base + ":update:event:published:"+ model.id);
+			vm.shell.postal.publish(args);			
 		}
 	}
 
@@ -92,11 +89,12 @@ module.exports = function organisationBaseController(vm, shell, service){
 		// sets remove organisation event arguments;
 		var args = {
 			"channel": "organisation",
-			"topic"  : "remove",
+			"topic"  : "remove:event",
 			"data"   : organisation
 		}
 		// publishes the remove organisation event;
-		vm.shell.postal.publish(args);
+		vm.shell.debug(vm.base + ":remove:event:published"+ organisation.id);
+		vm.shell.postal.publish(args);		
 	}
 
 	/**
@@ -111,11 +109,12 @@ module.exports = function organisationBaseController(vm, shell, service){
 		// sets select organisation event arguments;
 		var args = {
 			"channel": "organisation",
-			"topic"  : "select",
+			"topic"  : "select:event",
 			"data"   : organisation
 		}
 		// publishes the select organisation event;
-		vm.shell.postal.publish(args);
+		vm.shell.debug(vm.base + ":select:event:published:"+ organisation.id);
+		vm.shell.postal.publish(args);		
 	}
 
 	/**

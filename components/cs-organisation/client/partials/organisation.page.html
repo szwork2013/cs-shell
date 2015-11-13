@@ -1,7 +1,18 @@
 
-<cs-page class="cs-organisation-page animated fadeInRight">
-    <cs-organisation-grid class="row"></cs-organisation-grid>
-    <cs-organisation-list class="row"></cs-organisation-list>
-    <cs-organisation-form class="row"></cs-organisation-form>
-    <cs-organisation-card class="row"></cs-organisation-card>
+<cs-page class="cs-organisation-page container animated fadeInRight">
+	<div class="row">
+		<div class="page-header">
+			<h1>Page <small>manage Organisations</small></h1>
+		</div>
+	</div>    
+	<div class="row">
+		<div class="col-sm-6 col-md-8">
+			<cs-organisation-grid></cs-organisation-grid>
+			<cs-organisation-form></cs-organisation-form>          
+			<cs-organisation-card></cs-organisation-card>
+		</div>
+		<div class="col-sm-6 col-md-4">
+			<cs-organisation-list></cs-organisation-list>
+		</div>
+	</div>    
 </cs-page>

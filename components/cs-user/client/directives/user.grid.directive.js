@@ -9,8 +9,8 @@ var angular = require ("angular");
  */
 module.exports = function(shell, $compile){
 	return {
-        restrict:"E",
-        scope:{},
+		restrict:"E",
+		scope:{},
 		bindToController:true,
 		controller:"UserGridController",
 		controllerAs:"vm",

@@ -4,10 +4,11 @@
 */
 module.exports = function controlBaseController(vm, shell, service){
 	/**
-	* setting control shell services
+	* setting control shell service varuables
 	*/
 	if(!vm.shell) vm.shell = shell;
 	if(!vm.shell.control) vm.shell.control = { selected: [], models: [], service: service};
+	vm.base = "control:base:controller";
 	
 	/**
 	* adds a new control with the given id
@@ -15,28 +16,24 @@ module.exports = function controlBaseController(vm, shell, service){
 	vm.createControl = function (controlId){
 		// checks for an id if not sets one;
 		if(!controlId) controlId = vm.shell.newId();
-		// checks if the current needs to be saved
-		if(vm.shell.control.isDirty){
-			vm.updateControl(vm.shell.control.selected[0]);
-		}
 		// sets new control;
 		vm.shell.control.selected[0] = {
 			id:controlId
 		}
 		// creates the model
-		vm.shell.control.service.createControl
-			.then(onSuccess, onFailure);
+		vm.shell.control.service.createControl(control, onCreated);
 
-		function onSuccess(model){
-			vm.shell.control.selected[0]=model;
+		function onCreated(model){
+			vm.selectControl(model);
 			// sets add new control event arguments;
 			var args = {
 				"channel": "control",
-				"topic"  : "create",
-				"data"   : vm.shell.control.selected[0]
+				"topic"  : "create:event",
+				"data"   : model
 			}
 			// publishes the add new control event;
-			vm.shell.postal.publish(args);
+			vm.shell.debug(vm.base + ":create:event:published:"+ model.id);
+			vm.shell.postal.publish(args);			
 		}
 	}
 
@@ -51,19 +48,19 @@ module.exports = function controlBaseController(vm, shell, service){
 		}
 		// saves the current control;
 		// creates the model
-		vm.shell.control.service.updateControl(control)
-			.then(onSuccess, onFailure);
+		vm.shell.control.service.updateControl(control, onUpdated);
 
-		function onSuccess(model){
-		vm.shell.control.selected[0]=model;
-		// sets add new control event arguments;
-		var args = {
-			"channel": "control",
-			"topic"  : "update",
-			"data"   : vm.shell.control.selected[0]
-		}
-		// publishes the add new control event;
-		vm.shell.postal.publish(args);
+		function onUpdated(model){
+			vm.selectControl(model);
+			// sets add new control event arguments;
+			var args = {
+				"channel": "control",
+				"topic"  : "update:event",
+				"data"   : model
+			}
+			// publishes the add new control event;
+			vm.shell.debug(vm.base + ":update:event:published:"+ model.id);
+			vm.shell.postal.publish(args);			
 		}
 	}
 
@@ -92,11 +89,12 @@ module.exports = function controlBaseController(vm, shell, service){
 		// sets remove control event arguments;
 		var args = {
 			"channel": "control",
-			"topic"  : "remove",
+			"topic"  : "remove:event",
 			"data"   : control
 		}
 		// publishes the remove control event;
-		vm.shell.postal.publish(args);
+		vm.shell.debug(vm.base + ":remove:event:published"+ control.id);
+		vm.shell.postal.publish(args);		
 	}
 
 	/**
@@ -111,11 +109,12 @@ module.exports = function controlBaseController(vm, shell, service){
 		// sets select control event arguments;
 		var args = {
 			"channel": "control",
-			"topic"  : "select",
+			"topic"  : "select:event",
 			"data"   : control
 		}
 		// publishes the select control event;
-		vm.shell.postal.publish(args);
+		vm.shell.debug(vm.base + ":select:event:published:"+ control.id);
+		vm.shell.postal.publish(args);		
 	}
 
 	/**

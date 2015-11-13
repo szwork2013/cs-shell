@@ -33,11 +33,11 @@ cs-app {
                 @extend .nopadding;
                 
                 cs-app-sidebar {
-                   float: left; 
-                   width: 200px;
-                   min-height: 90vh;
-                   background-color: $background-dark;	
-                   padding-top: 30px;
+                    float: left; 
+                    width: 200px;
+                    min-height: 90vh;
+                    background-color: $background-dark;	
+                    padding-top: 30px;
                 }
                 
                 cs-app-content {
@@ -56,4 +56,9 @@ cs-app {
             }
         }
     }
+}
+
+.ag-fresh {
+    height: 400px;
+    width: 100%;
 }

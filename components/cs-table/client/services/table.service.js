@@ -12,37 +12,64 @@ module.exports = function($http, api, Table, _) {
 	/**
 	* gets all table models
 	*/
-	service.getTables = function () {
-		$http.get(url).then(function(models){
-			var tables = [];
-			_.forEach(models, function(model){
-				tables.push(new Table(model));
+	service.getTables = function (cb) {
+		$http.get(url).then(function(result){
+			var models = [];
+			_.forEach(result.data, function(model){
+				models.push(new Table(model));
 			});
-			return tables;
+			if(!cb){
+				return models;
+			}
+			else {
+				cb(models)
+			}			
 		},onError);
 	};
 
 	/**
 	* gets a table model by id
 	*/
-	service.getTable = function (id) {
-		$http.get(url + "/" + id).then(function(model){
-			return new Table(model);
+	service.getTable = function (id, cb) {
+		$http.get(url + "/" + id).then(function(result){
+			var model = new Table(result.data);
+			if(!cb){
+				return model;
+			}
+			else {
+				cb(model)
+			}
 		},onError);
 	};
 
 	/**
 	* creates a new table model
 	*/
-	service.createTable = function (model) {
-		return $http.post(url, model);
+	service.createTable = function (model, cb) {
+		$http.post(url, model).then(function(result){
+			_.extend(model, result.data);
+			if(!cb){
+				return model;
+			}
+			else {
+				cb(model)
+			}
+		},onError);
 	};
 
 	/**
 	* updates a table model
 	*/
-	service.updateTable = function (model) {
-		return $http.put(url + "/" + model.id, model);
+	service.updateTable = function (model, cb) {
+		$http.put(url + "/" + model.id, model).then(function(result){
+			_.extend(model, result.data);
+			if(!cb){
+				return model;
+			}
+			else {
+				cb(model)
+			}
+		},onError);
 	};
 
 	/**

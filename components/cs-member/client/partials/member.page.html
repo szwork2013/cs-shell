@@ -1,7 +1,18 @@
 
-<cs-page class="cs-member-page animated fadeInRight">
-    <cs-member-grid class="row"></cs-member-grid>
-    <cs-member-list class="row"></cs-member-list>
-    <cs-member-form class="row"></cs-member-form>
-    <cs-member-card class="row"></cs-member-card>
+<cs-page class="cs-member-page container animated fadeInRight">
+	<div class="row">
+		<div class="page-header">
+			<h1>Page <small>manage Members</small></h1>
+		</div>
+	</div>    
+	<div class="row">
+		<div class="col-sm-6 col-md-8">
+			<cs-member-grid></cs-member-grid>
+			<cs-member-form></cs-member-form>          
+			<cs-member-card></cs-member-card>
+		</div>
+		<div class="col-sm-6 col-md-4">
+			<cs-member-list></cs-member-list>
+		</div>
+	</div>    
 </cs-page>
