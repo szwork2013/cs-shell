@@ -1,16 +1,16 @@
 
 <ul class="list-group">
     <li class="list-group-item">
-        <form name="frmStripAdd" ng-submit="vm.CreateStrip(vm.shell.strip.selected[0])">
+        <form name="frmStripAdd" ng-submit="vm.newStrip()">
             <div class="form-group no-margin">
                 <div class="input-group">
                     <input type="text"
                            class="form-control"
                            name="fldStripAddName"
-                           ng-model="vm.name"
+                           ng-model="vm.shell.strip.name"
                            placeholder="enter a name and press enter" />
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button" ng-disabled="" ng-click="vm.CreateStrip(vm.shell.strip.selected[0])">
+                        <button class="btn btn-default" type="button" ng-disabled="" ng-click="vm.newStrip()">
                             <i class="glyphicon glyphicon-plus color-primary"></i>
                         </button>
                     </span>
@@ -25,6 +25,6 @@
     <li class="list-group-item list-group-item-header"><div><h5 class="list-group-item-heading">Select a Strip</h5></div></li>
     <li class="list-group-item" ng-repeat="model in vm.shell.strip.models track by model.id">
         <a href="javascript:void(0)" ng-click="vm.selectStrip(model);">{{model.name}}</a>
-        <a href="javascript:void(0)" ng-click="vm.shell.strip.service.removeStrip(model.id);"><i class="fa fa-trash-o pull-right"></i></a>
+        <a href="javascript:void(0)" ng-click="vm.removeStrip(model);"><i class="fa fa-trash-o pull-right"></i></a>
     </li>
 </ul>

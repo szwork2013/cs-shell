@@ -2,12 +2,27 @@
 /**
  * Initializes angular component module cs-user service.
  */
-module.exports = function($http, api, User, _) {
-	// sets url;
+module.exports = function($http, api, User, _, uuid) {
+
+	/**
+	* setups the user url.
+	*/
 	var url = api + "/users";
 
-	// sets up service;
+	/**
+	* setups the user service.
+	*/
 	var service = {};
+	
+	/**
+	* creates a new user model.
+	*/
+	service.newUser = function(){
+		var user = new User();
+		user.id = uuid.v4();
+		user.$state = "new";
+		return user;
+	}
 
 	/**
 	* gets all user models
@@ -75,8 +90,15 @@ module.exports = function($http, api, User, _) {
 	/**
 	* removes a user model
 	*/
-	service.removeUser = function (id) {
-		return $http.delete(url + "/" + id);
+	service.removeUser = function (id, cb) {
+		$http.delete(url + "/" + id).then(function(result){
+			if(!cb){
+				return;
+			}
+			else {
+				cb()
+			}
+		},onError);
 	};
 
 	/**
@@ -87,8 +109,8 @@ module.exports = function($http, api, User, _) {
 	}
 
 	/**
-	* exposes user service
+	* exposes the user service
 	*/
 	return service;
 }
-module.exports.$inject = ["$http", "Api", "User", "_"];
+module.exports.$inject = ["$http", "Api", "User", "_", "uuid"];

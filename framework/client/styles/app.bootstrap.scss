@@ -12,3 +12,12 @@
   margin-bottom: 0px;
   padding-right: 15px;
 }
+
+.row.no-pad {
+  margin-right:0!important;
+  margin-left:0!important;
+}
+.row.no-pad > [class*='col-'] {
+  padding-right:0!important;
+  padding-left:0!important;
+}

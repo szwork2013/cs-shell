@@ -1,16 +1,16 @@
 
 <ul class="list-group">
     <li class="list-group-item">
-        <form name="frmControlAdd" ng-submit="vm.CreateControl(vm.shell.control.selected[0])">
+        <form name="frmControlAdd" ng-submit="vm.newControl()">
             <div class="form-group no-margin">
                 <div class="input-group">
                     <input type="text"
                            class="form-control"
                            name="fldControlAddName"
-                           ng-model="vm.name"
+                           ng-model="vm.shell.control.name"
                            placeholder="enter a name and press enter" />
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button" ng-disabled="" ng-click="vm.CreateControl(vm.shell.control.selected[0])">
+                        <button class="btn btn-default" type="button" ng-disabled="" ng-click="vm.newControl()">
                             <i class="glyphicon glyphicon-plus color-primary"></i>
                         </button>
                     </span>
@@ -23,6 +23,6 @@
     <li class="list-group-item list-group-item-header"><div><h5 class="list-group-item-heading">Select a Control</h5></div></li>
     <li class="list-group-item" ng-repeat="model in vm.shell.control.models track by model.id">
         <a href="javascript:void(0)" ng-click="vm.selectControl(model);">{{model.name}}</a>
-        <a href="javascript:void(0)" ng-click="vm.shell.control.service.removeControl(model.id);"><i class="fa fa-trash-o pull-right"></i></a>
+        <a href="javascript:void(0)" ng-click="vm.removeControl(model);"><i class="fa fa-trash-o pull-right"></i></a>
     </li>
 </ul>

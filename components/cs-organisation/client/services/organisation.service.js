@@ -2,12 +2,27 @@
 /**
  * Initializes angular component module cs-organisation service.
  */
-module.exports = function($http, api, Organisation, _) {
-	// sets url;
+module.exports = function($http, api, Organisation, _, uuid) {
+
+	/**
+	* setups the organisation url.
+	*/
 	var url = api + "/organisations";
 
-	// sets up service;
+	/**
+	* setups the organisation service.
+	*/
 	var service = {};
+	
+	/**
+	* creates a new organisation model.
+	*/
+	service.newOrganisation = function(){
+		var organisation = new Organisation();
+		organisation.id = uuid.v4();
+		organisation.$state = "new";
+		return organisation;
+	}
 
 	/**
 	* gets all organisation models
@@ -75,8 +90,15 @@ module.exports = function($http, api, Organisation, _) {
 	/**
 	* removes a organisation model
 	*/
-	service.removeOrganisation = function (id) {
-		return $http.delete(url + "/" + id);
+	service.removeOrganisation = function (id, cb) {
+		$http.delete(url + "/" + id).then(function(result){
+			if(!cb){
+				return;
+			}
+			else {
+				cb()
+			}
+		},onError);
 	};
 
 	/**
@@ -87,8 +109,8 @@ module.exports = function($http, api, Organisation, _) {
 	}
 
 	/**
-	* exposes organisation service
+	* exposes the organisation service
 	*/
 	return service;
 }
-module.exports.$inject = ["$http", "Api", "Organisation", "_"];
+module.exports.$inject = ["$http", "Api", "Organisation", "_", "uuid"];

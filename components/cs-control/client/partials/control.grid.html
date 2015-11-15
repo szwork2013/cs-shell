@@ -1,2 +1,11 @@
 
-<div ag-grid="vm.gridOptions" class="ag-fresh"></div>
+<section class="container-fluid cs-control-grid">
+	<div class="row no-pad margin-bottom-10">
+		<button class="btn btn-default" ng-click="vm.onGridRefreshControl()">Refresh</button>
+		<button class="btn btn-default btn-warning" ng-click="vm.removeControl(vm.shell.control.selected[0])">Delete</button>
+		<button class="btn btn-default btn-success" ng-click="vm.newControl()">New</button>
+	</div>
+	<div class="row no-pad">
+		<div ag-grid="vm.gridOptions" class="ag-fresh"></div>	
+	</div>	
+</section>

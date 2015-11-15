@@ -2,12 +2,27 @@
 /**
  * Initializes angular component module cs-strip service.
  */
-module.exports = function($http, api, Strip, _) {
-	// sets url;
+module.exports = function($http, api, Strip, _, uuid) {
+
+	/**
+	* setups the strip url.
+	*/
 	var url = api + "/strips";
 
-	// sets up service;
+	/**
+	* setups the strip service.
+	*/
 	var service = {};
+	
+	/**
+	* creates a new strip model.
+	*/
+	service.newStrip = function(){
+		var strip = new Strip();
+		strip.id = uuid.v4();
+		strip.$state = "new";
+		return strip;
+	}
 
 	/**
 	* gets all strip models
@@ -75,8 +90,15 @@ module.exports = function($http, api, Strip, _) {
 	/**
 	* removes a strip model
 	*/
-	service.removeStrip = function (id) {
-		return $http.delete(url + "/" + id);
+	service.removeStrip = function (id, cb) {
+		$http.delete(url + "/" + id).then(function(result){
+			if(!cb){
+				return;
+			}
+			else {
+				cb()
+			}
+		},onError);
 	};
 
 	/**
@@ -87,8 +109,8 @@ module.exports = function($http, api, Strip, _) {
 	}
 
 	/**
-	* exposes strip service
+	* exposes the strip service
 	*/
 	return service;
 }
-module.exports.$inject = ["$http", "Api", "Strip", "_"];
+module.exports.$inject = ["$http", "Api", "Strip", "_", "uuid"];

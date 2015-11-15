@@ -2,12 +2,27 @@
 /**
  * Initializes angular component module cs-table service.
  */
-module.exports = function($http, api, Table, _) {
-	// sets url;
+module.exports = function($http, api, Table, _, uuid) {
+
+	/**
+	* setups the table url.
+	*/
 	var url = api + "/tables";
 
-	// sets up service;
+	/**
+	* setups the table service.
+	*/
 	var service = {};
+	
+	/**
+	* creates a new table model.
+	*/
+	service.newTable = function(){
+		var table = new Table();
+		table.id = uuid.v4();
+		table.$state = "new";
+		return table;
+	}
 
 	/**
 	* gets all table models
@@ -75,8 +90,15 @@ module.exports = function($http, api, Table, _) {
 	/**
 	* removes a table model
 	*/
-	service.removeTable = function (id) {
-		return $http.delete(url + "/" + id);
+	service.removeTable = function (id, cb) {
+		$http.delete(url + "/" + id).then(function(result){
+			if(!cb){
+				return;
+			}
+			else {
+				cb()
+			}
+		},onError);
 	};
 
 	/**
@@ -87,8 +109,8 @@ module.exports = function($http, api, Table, _) {
 	}
 
 	/**
-	* exposes table service
+	* exposes the table service
 	*/
 	return service;
 }
-module.exports.$inject = ["$http", "Api", "Table", "_"];
+module.exports.$inject = ["$http", "Api", "Table", "_", "uuid"];

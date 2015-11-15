@@ -2,7 +2,7 @@
 /**
  * Initializes angular component module cs-shell-core service.
  */
-module.exports = function csShellCore(postal, uuid, $log) {
+module.exports = function csShellCore(postal, uuid, $log, _) {
 	function newId(){
 		uuid.v4(); 
 	}
@@ -20,7 +20,8 @@ module.exports = function csShellCore(postal, uuid, $log) {
 		dialog: dialog,
 		info: info,
 		debug: debug,
-		newId: newId
+		newId: newId,
+		_: _
 	}	
 }
-module.exports.$inject = ["postal","uuid", "$log"];
+module.exports.$inject = ["postal","uuid", "$log", "_"];

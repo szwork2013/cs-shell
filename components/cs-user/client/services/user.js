@@ -8,7 +8,8 @@ module.exports = function(shell, _) {
 	*/
 	function User (options){
 		// setting properties;
-		this.id = shell.newId();
+		this.$state = "normal";
+		this.id = null;
 		this.name = null;
 		this.isActive = null;
 		this.email = null;
@@ -16,8 +17,9 @@ module.exports = function(shell, _) {
 		this.file = null;
 		this.dob = null;
 		this.city = null;
-		// extending with options;
-		_.extend(this, options);
+		// extending with options when provided;
+		if(options)
+			_.extend(this, options);
 
 	}
     var members = [];

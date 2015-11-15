@@ -2,12 +2,27 @@
 /**
  * Initializes angular component module cs-control service.
  */
-module.exports = function($http, api, Control, _) {
-	// sets url;
+module.exports = function($http, api, Control, _, uuid) {
+
+	/**
+	* setups the control url.
+	*/
 	var url = api + "/controls";
 
-	// sets up service;
+	/**
+	* setups the control service.
+	*/
 	var service = {};
+	
+	/**
+	* creates a new control model.
+	*/
+	service.newControl = function(){
+		var control = new Control();
+		control.id = uuid.v4();
+		control.$state = "new";
+		return control;
+	}
 
 	/**
 	* gets all control models
@@ -75,8 +90,15 @@ module.exports = function($http, api, Control, _) {
 	/**
 	* removes a control model
 	*/
-	service.removeControl = function (id) {
-		return $http.delete(url + "/" + id);
+	service.removeControl = function (id, cb) {
+		$http.delete(url + "/" + id).then(function(result){
+			if(!cb){
+				return;
+			}
+			else {
+				cb()
+			}
+		},onError);
 	};
 
 	/**
@@ -87,8 +109,8 @@ module.exports = function($http, api, Control, _) {
 	}
 
 	/**
-	* exposes control service
+	* exposes the control service
 	*/
 	return service;
 }
-module.exports.$inject = ["$http", "Api", "Control", "_"];
+module.exports.$inject = ["$http", "Api", "Control", "_", "uuid"];

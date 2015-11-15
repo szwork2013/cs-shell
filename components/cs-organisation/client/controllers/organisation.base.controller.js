@@ -7,23 +7,62 @@ module.exports = function organisationBaseController(vm, shell, service){
 	* setting organisation shell service varuables
 	*/
 	if(!vm.shell) vm.shell = shell;
-	if(!vm.shell.organisation) vm.shell.organisation = { selected: [], models: [], service: service};
+	if(!vm.shell.organisation) vm.shell.organisation = { selected: [], models: [], service: service, name:""};
 	vm.base = "organisation:base:controller";
+
+	/**
+	* creates a new organisation model.
+	*/	
+	vm.newOrganisation = function(){
+		var organisation = shell.organisation.service.newOrganisation();
+		if(shell.organisation.name){
+			organisation.name = shell.organisation.name;
+			shell.organisation.name = "";
+		}
+		vm.shell.debug(vm.base + ":created:new");
+		// selects the current organisation;
+		vm.selectOrganisation(organisation);
+		// sets add new organisation event arguments;
+		var args = {
+			"channel": "organisation",
+			"topic"  : "new:event",
+			"data"   : organisation
+		}
+		// publishes the add new organisation event;
+		vm.shell.debug(vm.base + ":new:event:published:"+ organisation.id);
+		vm.shell.postal.publish(args);
+	}
+
+	/**
+	* saves a new organisation model.
+	*/	
+	vm.saveOrganisation = function(){
+		if(vm.shell.organisation.selected[0].$state==="new"){
+			vm.createOrganisation(vm.shell.organisation.selected[0]);
+		}
+		else {
+			vm.updateOrganisation(vm.shell.organisation.selected[0]);
+		}
+	}
 	
 	/**
 	* adds a new organisation with the given id
 	*/
-	vm.createOrganisation = function (organisationId){
-		// checks for an id if not sets one;
-		if(!organisationId) organisationId = vm.shell.newId();
-		// sets new organisation;
-		vm.shell.organisation.selected[0] = {
-			id:organisationId
-		}
+	vm.createOrganisation = function (organisation){
+		// checks if this is a new model
+		if(organisation.hasOwnProperty("$state")&&organisation.$state!=="new"){
+			vm.shell.debug(vm.base + ":create:state:isnot:new");
+			return;
+		} 
+		// organisation state;
+		delete(organisation.$state);
 		// creates the model
 		vm.shell.organisation.service.createOrganisation(organisation, onCreated);
 
 		function onCreated(model){
+			// adds the organisation to the models collection;
+			vm.shell.organisation.models.push(model);
+			// selects the current model;
 			vm.selectOrganisation(model);
 			// sets add new organisation event arguments;
 			var args = {
@@ -41,16 +80,11 @@ module.exports = function organisationBaseController(vm, shell, service){
 	* saves the changes for given organisation
 	*/
 	vm.updateOrganisation = function (organisation){
-		// checks if the current organisation needs saving;
-		if(!organisation.isDirty){
-			// notifies the organisation;
-			vm.shell.info("Nothing to save");
-		}
 		// saves the current organisation;
-		// creates the model
 		vm.shell.organisation.service.updateOrganisation(organisation, onUpdated);
 
 		function onUpdated(model){
+			// selects the current model;
 			vm.selectOrganisation(model);
 			// sets add new organisation event arguments;
 			var args = {
@@ -68,42 +102,34 @@ module.exports = function organisationBaseController(vm, shell, service){
 	* removes the given organisation
 	*/
 	vm.removeOrganisation = function (organisation){
-		// sets the dialog options;
-		var options = {
-			title:"Remove organisation ...",
-			message: "You really want to remove this organisation: " + organisation.name + " and all its' related information?",
-			ok: "Yes",
-			cancel: "No"
-		}
-		// checks if this record should really be removed;
-		if(!vm.shell.dialog(options)) return;
 		// removes the organisation;
-		vm.shell.organisation.service.removeOrganisation(organisation)
-		// sets the current organisation to a new empty record;
-		vm.createOrganisation();
-		// removes organisation) from cache;
-		var index = vm.shell.organisation.models.indexOf(organisation);
-		if(index>-1) vm.shell.organisation.models.splice(index);
-		// notifies that the organisation has been removed;
-		vm.shell.info("Organisation " + organisation.name + " removed!");
-		// sets remove organisation event arguments;
-		var args = {
-			"channel": "organisation",
-			"topic"  : "remove:event",
-			"data"   : organisation
-		}
-		// publishes the remove organisation event;
-		vm.shell.debug(vm.base + ":remove:event:published"+ organisation.id);
-		vm.shell.postal.publish(args);		
+		vm.shell.organisation.service.removeOrganisation(organisation.id, onRemove);
+		
+		function onRemove(){
+			// sets the current organisation to a new empty record;
+			vm.selectOrganisation(vm.newOrganisation());
+			// removes organisation from models;
+			shell._.remove(vm.shell.organisation.models, function(model){
+				return model.id===organisation.id;
+			});
+			// sets remove organisation event arguments;
+			var args = {
+				"channel": "organisation",
+				"topic"  : "remove:event",
+				"data"   : organisation
+			}
+			// publishes the remove organisation event;
+			vm.shell.debug(vm.base + ":remove:event:published:"+ organisation.id);
+			vm.shell.postal.publish(args);	
+		}	
 	}
 
 	/**
 	* selects a organisation
 	*/
 	vm.selectOrganisation = function (organisation){
-		// checks if a organisation is supplied;
 		// checks if organisation needs to be set;
-		if(!organisation||organisation===vm.shell.organisation.selected[0]) return;
+		if(!organisation||organisation.id===vm.shell.organisation.selected[0].id) return;
 		// sets organisation;
 		vm.shell.organisation.selected[0] = organisation;
 		// sets select organisation event arguments;
@@ -122,6 +148,7 @@ module.exports = function organisationBaseController(vm, shell, service){
 	*/
 	vm.refresh = function(){
 		vm.shell.organisation.models = vm.shell.organisation.service.getOrganisations();
+		vm.shell.debug(vm.base + ":refresh");
 	}
 
 	/**

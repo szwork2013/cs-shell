@@ -8,13 +8,15 @@ module.exports = function(shell, _) {
 	*/
 	function Field (options){
 		// setting properties;
-		this.id = shell.newId();
+		this.$state = "normal";
+		this.id = null;
 		this.name = null;
 		this.isActive = null;
 		this.type = null;
 		this.tableId = null;
-		// extending with options;
-		_.extend(this, options);
+		// extending with options when provided;
+		if(options)
+			_.extend(this, options);
 
 	}
     var table = {};

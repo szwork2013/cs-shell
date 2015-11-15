@@ -8,13 +8,15 @@ module.exports = function(shell, _) {
 	*/
 	function Strip (options){
 		// setting properties;
-		this.id = shell.newId();
+		this.$state = "normal";
+		this.id = null;
 		this.name = null;
 		this.isActive = null;
 		this.controlId = null;
 		this.parentId = null;
-		// extending with options;
-		_.extend(this, options);
+		// extending with options when provided;
+		if(options)
+			_.extend(this, options);
 
 	}
     var control = {};

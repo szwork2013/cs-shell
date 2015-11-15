@@ -40,7 +40,8 @@ module.exports = function($scope, $http, shell, service) {
 		}
 	};
 	vm.onPageSizeChanged = onPageSizeChanged;
-
+	vm.onGridRefreshStrip = onGridRefreshStrip;
+	
 	/**
 	 * Initializes the strip grid controller
 	 */
@@ -48,13 +49,21 @@ module.exports = function($scope, $http, shell, service) {
 		vm.shell.debug(vm.name + ":initializing");
 		vm.shell.strip.service.getStrips(function(models){
 			// sets the event subscriptions;
-			stripUpdateEvent();		
+			stripEvents();		
 			// sets the datagrid's datasource;
 			vm.shell.strip.models = models;	
 			// creates the grid datasource;
 			createDatasource();
 			vm.shell.debug(vm.name + ":initialized:" + models.length);		
 		});
+	}
+
+	/**
+	 * refreshes the grid datasource;
+	 */	
+	function onGridRefreshStrip(){
+		createDatasource();
+		vm.shell.debug(vm.name + ":grid:refresh");
 	}
 	
 	/**
@@ -105,22 +114,41 @@ module.exports = function($scope, $http, shell, service) {
 	}
 	
 	/**
-	 * strip update event
+	 * strip events
 	 */
-	function stripUpdateEvent(){
+	function stripEvents(){
 		var stripUpdateSubscription = vm.shell.postal.subscribe({
 			channel: "strip",
 			topic: "update:event",
 			callback: function(data, envelope) {
-				vm.gridOptions.api.refreshView();
+				vm.onGridRefreshStrip();
 				vm.shell.debug(vm.name + ":update:event:received:"+data.id);
 			}
 		});
 		vm.shell.debug(vm.name + ":update:event:subscribed");
-		
+		var stripCreateSubscription = vm.shell.postal.subscribe({
+			channel: "strip",
+			topic: "create:event",
+			callback: function(data, envelope) {
+				vm.onGridRefreshStrip();
+				vm.shell.debug(vm.name + ":create:event:received:"+data.id);
+			}
+		});
+		vm.shell.debug(vm.name + ":create:event:subscribed");
+		var stripRemoveSubscription = vm.shell.postal.subscribe({
+			channel: "strip",
+			topic: "remove:event",
+			callback: function(data, envelope) {
+				vm.onGridRefreshStrip();
+				vm.shell.debug(vm.name + ":remove:event:received:"+data.id);
+			}
+		});
+		vm.shell.debug(vm.name + ":remove:event:subscribed");
 		$scope.$on("$destroy",function(){
 			stripUpdateSubscription.unsubscribe();
 			vm.shell.debug(vm.name + ":update:event:unsubscribed");
+			stripCreateSubscription.unsubscribe();
+			vm.shell.debug(vm.name + ":create:event:unsubscribed");
 		});
 	}
 	

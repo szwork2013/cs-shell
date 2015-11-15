@@ -38,7 +38,8 @@ module.exports = function($scope, $http, shell, service) {
 		}
 	};
 	vm.onPageSizeChanged = onPageSizeChanged;
-
+	vm.onGridRefreshOrganisation = onGridRefreshOrganisation;
+	
 	/**
 	 * Initializes the organisation grid controller
 	 */
@@ -46,13 +47,21 @@ module.exports = function($scope, $http, shell, service) {
 		vm.shell.debug(vm.name + ":initializing");
 		vm.shell.organisation.service.getOrganisations(function(models){
 			// sets the event subscriptions;
-			organisationUpdateEvent();		
+			organisationEvents();		
 			// sets the datagrid's datasource;
 			vm.shell.organisation.models = models;	
 			// creates the grid datasource;
 			createDatasource();
 			vm.shell.debug(vm.name + ":initialized:" + models.length);		
 		});
+	}
+
+	/**
+	 * refreshes the grid datasource;
+	 */	
+	function onGridRefreshOrganisation(){
+		createDatasource();
+		vm.shell.debug(vm.name + ":grid:refresh");
 	}
 	
 	/**
@@ -103,22 +112,41 @@ module.exports = function($scope, $http, shell, service) {
 	}
 	
 	/**
-	 * organisation update event
+	 * organisation events
 	 */
-	function organisationUpdateEvent(){
+	function organisationEvents(){
 		var organisationUpdateSubscription = vm.shell.postal.subscribe({
 			channel: "organisation",
 			topic: "update:event",
 			callback: function(data, envelope) {
-				vm.gridOptions.api.refreshView();
+				vm.onGridRefreshOrganisation();
 				vm.shell.debug(vm.name + ":update:event:received:"+data.id);
 			}
 		});
 		vm.shell.debug(vm.name + ":update:event:subscribed");
-		
+		var organisationCreateSubscription = vm.shell.postal.subscribe({
+			channel: "organisation",
+			topic: "create:event",
+			callback: function(data, envelope) {
+				vm.onGridRefreshOrganisation();
+				vm.shell.debug(vm.name + ":create:event:received:"+data.id);
+			}
+		});
+		vm.shell.debug(vm.name + ":create:event:subscribed");
+		var organisationRemoveSubscription = vm.shell.postal.subscribe({
+			channel: "organisation",
+			topic: "remove:event",
+			callback: function(data, envelope) {
+				vm.onGridRefreshOrganisation();
+				vm.shell.debug(vm.name + ":remove:event:received:"+data.id);
+			}
+		});
+		vm.shell.debug(vm.name + ":remove:event:subscribed");
 		$scope.$on("$destroy",function(){
 			organisationUpdateSubscription.unsubscribe();
 			vm.shell.debug(vm.name + ":update:event:unsubscribed");
+			organisationCreateSubscription.unsubscribe();
+			vm.shell.debug(vm.name + ":create:event:unsubscribed");
 		});
 	}
 	

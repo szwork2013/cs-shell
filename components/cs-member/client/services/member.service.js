@@ -2,12 +2,27 @@
 /**
  * Initializes angular component module cs-member service.
  */
-module.exports = function($http, api, Member, _) {
-	// sets url;
+module.exports = function($http, api, Member, _, uuid) {
+
+	/**
+	* setups the member url.
+	*/
 	var url = api + "/members";
 
-	// sets up service;
+	/**
+	* setups the member service.
+	*/
 	var service = {};
+	
+	/**
+	* creates a new member model.
+	*/
+	service.newMember = function(){
+		var member = new Member();
+		member.id = uuid.v4();
+		member.$state = "new";
+		return member;
+	}
 
 	/**
 	* gets all member models
@@ -75,8 +90,15 @@ module.exports = function($http, api, Member, _) {
 	/**
 	* removes a member model
 	*/
-	service.removeMember = function (id) {
-		return $http.delete(url + "/" + id);
+	service.removeMember = function (id, cb) {
+		$http.delete(url + "/" + id).then(function(result){
+			if(!cb){
+				return;
+			}
+			else {
+				cb()
+			}
+		},onError);
 	};
 
 	/**
@@ -87,8 +109,8 @@ module.exports = function($http, api, Member, _) {
 	}
 
 	/**
-	* exposes member service
+	* exposes the member service
 	*/
 	return service;
 }
-module.exports.$inject = ["$http", "Api", "Member", "_"];
+module.exports.$inject = ["$http", "Api", "Member", "_", "uuid"];

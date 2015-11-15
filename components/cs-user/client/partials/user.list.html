@@ -1,16 +1,16 @@
 
 <ul class="list-group">
     <li class="list-group-item">
-        <form name="frmUserAdd" ng-submit="vm.CreateUser(vm.shell.user.selected[0])">
+        <form name="frmUserAdd" ng-submit="vm.newUser()">
             <div class="form-group no-margin">
                 <div class="input-group">
                     <input type="text"
                            class="form-control"
                            name="fldUserAddName"
-                           ng-model="vm.name"
+                           ng-model="vm.shell.user.name"
                            placeholder="enter a name and press enter" />
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button" ng-disabled="" ng-click="vm.CreateUser(vm.shell.user.selected[0])">
+                        <button class="btn btn-default" type="button" ng-disabled="" ng-click="vm.newUser()">
                             <i class="glyphicon glyphicon-plus color-primary"></i>
                         </button>
                     </span>
@@ -23,6 +23,6 @@
     <li class="list-group-item list-group-item-header"><div><h5 class="list-group-item-heading">Select a User</h5></div></li>
     <li class="list-group-item" ng-repeat="model in vm.shell.user.models track by model.id">
         <a href="javascript:void(0)" ng-click="vm.selectUser(model);">{{model.name}}</a>
-        <a href="javascript:void(0)" ng-click="vm.shell.user.service.removeUser(model.id);"><i class="fa fa-trash-o pull-right"></i></a>
+        <a href="javascript:void(0)" ng-click="vm.removeUser(model);"><i class="fa fa-trash-o pull-right"></i></a>
     </li>
 </ul>
