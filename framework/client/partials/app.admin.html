@@ -1,22 +1,26 @@
-<cs-app-admin class="container-fluid">
-	<cs-app-header></cs-app-header>
-	<cs-app-main>
-		<cs-app-sidebar>
-			<cs-menu-item label="Dashboard" icon="fa-dashboard" route="cs.page.dashboard"></cs-menu-item>
-			<cs-menu-item label="Lists" icon="fa-list" route="cs.page.lists"></cs-menu-item>
-			<cs-menu-item label="Boards" icon="fa-table" route="cs.page.boards"></cs-menu-item>
-			<cs-menu-item label="Stars" icon="fa-star" route="cs.page.stars"></cs-menu-item>
-			<li><a ui-sref="cs.table.page">Tables</a></li>
-			<li><a ui-sref="cs.field.page">Fields</a></li>
-			<li><a ui-sref="cs.strip.page">Strips</a></li>
-			<li><a ui-sref="cs.user.page">Users</a></li>
-			<li><a ui-sref="cs.control.page">Controls</a></li>
-			<li><a ui-sref="cs.member.page">Members</a></li>
-			<li><a ui-sref="cs.organisation.page">Organisations</a></li>
-		</cs-app-sidebar>
-		<cs-app-content ui-view>
-			<span>{{app.routeString}}</span>
-		</cs-app-content>
-	</cs-app-main>
-	<cs-app-footer ></cs-app-footer>
+<!-- Wrapper-->
+<cs-app-admin id="wrapper">
+
+    <!-- Navigation -->
+    <cs-app-sidebar></cs-app-sidebar>
+
+    <!-- Page wraper -->
+    <!-- ng-class with current state name give you the ability to extended customization your view -->
+    <div id="page-wrapper" class="gray-bg {{$state.current.name}}">
+
+        <!-- Page wrapper -->
+        <cs-app-header></cs-app-header>
+
+        <!-- Main view  -->
+        <cs-app-content ui-view>
+            <span>{{app.routeString}}</span>
+        </cs-app-content>
+
+        <!-- Footer -->
+        <cs-app-footer></cs-app-footer>
+
+    </div>
+    <!-- End page wrapper-->
+
 </cs-app-admin>
+<!-- End wrapper-->

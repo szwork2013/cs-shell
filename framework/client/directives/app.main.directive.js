@@ -6,12 +6,12 @@ module.exports = function csMainHeight($, $window){
 	return {
 		restrict: "A",
 		link: function($scope, element, attrs){
-			var windowHeight = $window.innerHeight,
-				headerHeight = $("#header").height(),
-				footerHeight = $("#footer").height();
-			$(element).css({
-				"height": windowHeight-(headerHeight + footerHeight),
-			});
+			// var windowHeight = $window.innerHeight,
+			// 	headerHeight = $("#header").height(),
+			// 	footerHeight = $("#footer").height();
+			// $(element).css({
+			// 	"height": windowHeight-(headerHeight + footerHeight),
+			// });
 		}
 	}
 }

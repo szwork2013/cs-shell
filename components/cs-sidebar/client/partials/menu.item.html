@@ -1,8 +1,6 @@
-<li class="cs-menu-item">
-	<div>
-		<i class="fa {{icon}} cs-menu-item-icon"></i>
-		{{label}}
-	</div>	
-	<i class="fa fa-3x fa-caret-left cs-menu-item-active" ng-if="isActive()"></i>
-	
+<li ui-sref-active="active">
+	<a ui-sref="{{route}}">
+		<i class="fa {{icon}}"></i>
+		<span class="nav-label">{{label}}</span> 
+	</a>
 </li>
