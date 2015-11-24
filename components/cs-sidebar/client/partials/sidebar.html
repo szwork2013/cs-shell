@@ -1,37 +1,17 @@
-<nav class="navbar-default navbar-static-side" role="navigation">
-    <div class="sidebar-collapse">
-        <ul side-navigation class="nav metismenu" id="side-menu">
-            <li class="nav-header">
-                <div class="dropdown profile-element" dropdown>
-                    <a class="dropdown-toggle" dropdown-toggle href>
-                        <span class="clear">
-                            <span class="block m-t-xs">
-                                <strong class="font-bold">{{main.userName}}</strong>
-                            </span>
-                            <span class="text-muted text-xs block">Example menu<b class="caret"></b></span>
-                        </span>
-                    </a>
-                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a href="">Logout</a></li>
-                    </ul>
-                </div>
-                <div class="logo-element">
-                    IN+
-                </div>
-            </li>
-            <cs-menu-item label="Dashboard" icon="fa-dashboard" route="cs.dashboard"></cs-menu-item>
-            <cs-menu-item label="Tasks" icon="fa-tasks" route="cs.strip.task"></cs-menu-item>
-            <cs-menu-item label="Lists" icon="fa-list" route="cs.list.page"></cs-menu-item>
-            <cs-menu-item label="Boards" icon="fa-navicon" route="cs.board.page"></cs-menu-item>
-            <cs-menu-item label="Stars" icon="fa-star" route="cs.star.page"></cs-menu-item>
-            <cs-menu-item label="Tables" icon="fa-table" route="cs.table.page"></cs-menu-item>
-            <cs-menu-item label="Fields" icon="fa-minus" route="cs.field.page"></cs-menu-item>
-            <cs-menu-item label="Strips" icon="fa-sitemap" route="cs.strip.page"></cs-menu-item>           
-            <cs-menu-item label="Controls" icon="fa-sliders" route="cs.control.page"></cs-menu-item>
-            <cs-menu-item label="Users" icon="fa-users" route="cs.user.page"></cs-menu-item>
-            <cs-menu-item label="Members" icon="fa-cube" route="cs.member.page"></cs-menu-item>
-            <cs-menu-item label="Organisations" icon="fa-cubes" route="cs.organisation.page"></cs-menu-item>
-            <ng-transclude></ng-transclude>
-        </ul>
-    </div>
-</nav>
+<cs-sidebar>
+    <cs-menu>
+        <cs-menu-item label="Dashboard" icon="fa-dashboard" route="cs.dashboard"></cs-menu-item>
+        <cs-menu-item label="Tasks" icon="fa-tasks" route="cs.strip.task"></cs-menu-item>
+        <cs-menu-item label="Lists" icon="fa-list" route="cs.list.page"></cs-menu-item>
+        <cs-menu-item label="Boards" icon="fa-navicon" route="cs.board.page"></cs-menu-item>
+        <cs-menu-item label="Stars" icon="fa-star" route="cs.star.page"></cs-menu-item>
+        <cs-menu-item label="Tables" icon="fa-table" route="cs.table.page"></cs-menu-item>
+        <cs-menu-item label="Fields" icon="fa-minus" route="cs.field.page"></cs-menu-item>
+        <cs-menu-item label="Strips" icon="fa-sitemap" route="cs.strip.page"></cs-menu-item>           
+        <cs-menu-item label="Controls" icon="fa-sliders" route="cs.control.page"></cs-menu-item>
+        <cs-menu-item label="Users" icon="fa-users" route="cs.user.page"></cs-menu-item>
+        <cs-menu-item label="Members" icon="fa-cube" route="cs.member.page"></cs-menu-item>
+        <cs-menu-item label="Organisations" icon="fa-cubes" route="cs.organisation.page"></cs-menu-item>
+        <ng-transclude></ng-transclude>
+    </cs-menu>
+</cs-sidebar>

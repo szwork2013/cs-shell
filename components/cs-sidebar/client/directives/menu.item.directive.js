@@ -4,7 +4,7 @@
 module.exports = function menuItem(){
 	return {
 		restrict: "E",
-		replace: true,
+		replace: false,
 		require: "^csAppSidebar",
 		template: require("./../partials/menu.item.html"),
 		scope: {

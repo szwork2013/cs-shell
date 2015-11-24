@@ -2,7 +2,7 @@
  * defines angular module cs-app dependencies.
  */
 require("./styles/app.scss");
-require("!style!css!sass!./styles/inspinia.scss");
+//require("!style!css!sass!./styles/inspinia.scss");
 
 /**
  * configures angular module cs-app.

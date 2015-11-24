@@ -13,7 +13,7 @@ html, body {
 }
 
 body {
-    background: $background-dark;
+    background: $background-light;
     font-family: "Open Sans", sans-serif;
     overflow: hidden;
 }
@@ -23,18 +23,42 @@ body {
     margin: 0 !important;
 }
 
-.wrapper-content {
-    @extend .nopadding;
-}
+cs-app-admin {
+     @extend .nopadding;
 
-cs-app-content {
-    // padding: 20px;
-    height: 90vh;
-    overflow-x: hidden;
-    overflow-y: auto;
-    display: block;
     
-    cs-page {
-        margin: 10px;
+    cs-app-sidebar {
+        @extend .nopadding;
+        height: 100%;
+        float: left;
+        background-color: $background-dark;
+    }
+    
+    cs-app-main {
+        @extend .nopadding;
+        height: 100%;
+        
+        cs-app-header {
+            background-color: $background-light;
+        }
+        
+        cs-app-content {
+            @extend .nopadding;
+            background-color: $background-light;
+            // padding: 20px;
+            height: 90vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            display: block;
+            
+            cs-page {
+                margin: 10px;
+            }
+        }
+        
+        cs-app-footer {
+            background-color: $background-dark;
+        }
     }
 }
+
