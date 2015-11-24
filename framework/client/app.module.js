@@ -36,7 +36,8 @@ module.exports = function appModule($,angular,_, config){
         require("components/cs-sidebar").name,  
         require("components/cs-strip").name,
         require("components/cs-table").name,
-        require("components/cs-user").name            
+        require("components/cs-user").name,
+        require("components/cs-task").name             
     ]);
     app.config(require("./configs/app.config"));
     app.run(require("./configs/app.run"));

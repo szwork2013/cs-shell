@@ -1,10 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 @import "~bootstrap-sass/assets/stylesheets/_bootstrap-sprockets.scss";
 @import "~bootstrap-sass/assets/stylesheets/_bootstrap.scss";
-// @import "~bootswatch/paper/_variables.scss";
-// @import "~bootswatch/paper/_bootswatch.scss";
 @import "ag.grid";
-
 @import "app.bootstrap";
 @import "app.spaces";
 @import "app.index";
@@ -26,38 +23,18 @@ body {
     margin: 0 !important;
 }
 
-// cs-app {
-//     @extend .nopadding;
-//     
-//     cs-app-layout {
-//         @extend .nopadding;
-//         
-//         cs-app-admin {
-//             @extend .nopadding;
-//             
-//             cs-app-main {
-//                 @extend .nopadding;
-//                 
-//                 cs-app-sidebar {
-//                     float: left; 
-//                     width: 200px;
-//                     min-height: 90vh;
-//                     background-color: $background-dark;	
-//                     padding-top: 30px;
-//                 }
-//                 
-//                 cs-app-content {
-//                     padding: 20px;
-//                     height: 90vh;
-//                     overflow-x: hidden;
-//                     overflow-y: auto;
-//                     display: block;
-//                     
-//                     cs-page {
-//                         margin: 10px;
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
+.wrapper-content {
+    @extend .nopadding;
+}
+
+cs-app-content {
+    // padding: 20px;
+    height: 90vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: block;
+    
+    cs-page {
+        margin: 10px;
+    }
+}

@@ -14,6 +14,7 @@ module.exports = function(shell, _) {
 		this.isActive = null;
 		this.controlId = null;
 		this.parentId = null;
+		this.type = 'Todo';
 		// extending with options when provided;
 		if(options)
 			_.extend(this, options);
@@ -77,6 +78,7 @@ module.exports = function(shell, _) {
 		    isActive: data.isActive,
 		    controlId: data.controlId,
 		    parentId: data.parentId,
+		    type: data.type,
 		});
 	};
 

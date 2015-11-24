@@ -22,6 +22,7 @@ module.exports = function($scope, $http, shell, service) {
         { headerName: "Is active", field: "isActive", width: 100},
         { headerName: "Control id", field: "controlId", width: 100},
         { headerName: "Parent id", field: "parentId", width: 100},
+        { headerName: "Type", field: "type", width: 100},
 	]
 	vm.pageSize = 500;
 	vm.gridOptions = {

@@ -43,6 +43,7 @@ module.exports = function(Strip, config) {
             req.strip.isActive = req.body.isActive;
             req.strip.controlId = req.body.controlId;
             req.strip.parentId = req.body.parentId;
+            req.strip.type = req.body.type;
             req.strip.save(function(err) {
                 if (err) {
                     res.status(500).send(err);

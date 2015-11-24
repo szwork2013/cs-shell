@@ -14,6 +14,7 @@ module.exports = function StripController(Strip) {
 	        isActive: req.body.isActive,
 	        controlId: req.body.controlId,
 	        parentId: req.body.parentId,
+	        type: req.body.type,
         });
         // Checks if the strip model has a name;
         if (!req.body.name) {

@@ -12,11 +12,7 @@ module.exports = function appConfig($stateProvider, $urlRouterProvider) {
             template: require("./../partials/dashboard.html"),
             data: { pageTitle: "Dashboard" }
         })
-        .state("cs.tasks", {
-            url: "/tasks",
-            template: require("./../partials/tasks.html"),
-            data: { pageTitle: "Tasks" }
-        });
+        ;
         
     $urlRouterProvider.otherwise("/index/dashboard");
   }

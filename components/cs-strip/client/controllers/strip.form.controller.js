@@ -62,6 +62,16 @@ module.exports = function stripController($scope, shell, service){
             placeholder:"Enter parent id"
         }
     },
+    {
+        key: "type",
+        type: "input",
+        templateOptions:
+        {
+            type: "text",
+            label: "Type",
+            placeholder:"Enter type"
+        }
+    },
 	]
 }
 module.exports.$inject = ["$scope", "Shell", "StripService"]

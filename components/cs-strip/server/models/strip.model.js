@@ -15,6 +15,7 @@ var Schema = new mongoose.Schema({
 	isActive: { type: Boolean },
 	controlId: { type: String },
 	parentId: { type: String },
+	type: { type: String },
 });
 
 /**

@@ -8,9 +8,14 @@
   margin: 15px;
 }
 
+#page-wrapper {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
 .navbar.navbar-static-top {
   margin-bottom: 0px;
-  padding-right: 15px;
+  padding:0 !important;
 }
 
 .row.no-pad {

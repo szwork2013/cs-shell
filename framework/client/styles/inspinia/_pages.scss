@@ -965,25 +965,25 @@ dd.project-people {
 
 /* ISSUE TRACKER */
 
-.issue-tracker .btn-link {
+.strip-tracker .btn-link {
   color: $navy;
 }
 
-table.issue-tracker tbody tr td {
+table.strip-tracker tbody tr td {
   vertical-align: middle;
   height: 50px;
 }
 
-.issue-info {
+.strip-info {
   width: 50%;
 }
 
-.issue-info a {
+.strip-info a {
   font-weight: 600;
   color: $text-color;
 }
 
-.issue-info small {
+.strip-info small {
   display: block;
 }
 
