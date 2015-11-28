@@ -1,0 +1,46 @@
+cs-market-content {
+    
+	background: $background-light;
+    
+    .fa {
+        color: $background-dark;
+    }
+    
+    .well {
+        background: $background-dark; 
+        border-color: $background-dark;   
+    }
+    
+    hr {
+        border-color: $background-dark;    
+    }
+    
+    #userList {
+        display:none;        
+    }
+    
+    #loader {
+        position:absolute;
+        z-index:2;
+        width:100%;
+        text-align:center;
+        top:40%;
+    }
+    
+    li {
+        
+        &.active {
+            > a {
+                background-color: $cs-secondary !important;            
+            }
+        }
+        
+        a:hover {
+            background-color: $background-dark !important;
+            
+            .fa {
+                color: $background-light;
+            }
+        }
+    }
+}

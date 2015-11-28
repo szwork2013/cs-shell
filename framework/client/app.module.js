@@ -25,31 +25,29 @@ module.exports = function appModule($,angular,_, config){
         require("angular-ui-bootstrap"),
         require("angular-gridster").name,
         
+        require("components/cs-admin-page").name, 
         require("components/cs-control").name,       
         require("components/cs-field").name,
         require("components/cs-footer").name, 
         require("components/cs-header").name, 
-        require("components/cs-login").name,  
+        require("components/cs-login").name,
+        require("components/cs-market").name,  
         require("components/cs-member").name,
+        require("components/cs-menu").name,
         require("components/cs-organisation").name,        
         require("components/cs-shell-core").name,  
         require("components/cs-sidebar").name,  
         require("components/cs-strip").name,
         require("components/cs-table").name,
         require("components/cs-user").name,
-        require("components/cs-task").name             
+        require("components/cs-task").name                   
     ]);
     app.config(require("./configs/app.config"));
     app.run(require("./configs/app.run"));
     app.controller("AppController", require("./controllers/app.controller"));
-    
     app.directive("csApp", require("./directives/app.directive"));
-    app.directive("csAppContent", require("./directives/app.content.directive"));    
-    app.directive("csMainHeight", require("./directives/app.main.directive"));  
-	app.directive("minimalizaSidebar", require("./directives/minimalizasidebar.directive"));
-	app.directive("sideNavigation", require("./directives/app.sidenavigation.directive"));
 	app.directive("icheck", require("./directives/icheck.directive"));
-    
+    app.directive("csTransclude", require("./directives/transclude.directive"));
     app.factory("AppService", require("./services/app.service"));
     app.value("$", $);
     app.value("_", _);

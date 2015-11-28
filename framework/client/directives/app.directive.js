@@ -8,6 +8,6 @@ module.exports = function csApp(){
 		controllerAs: "app",
 		bindToController: true,
 		scope: {},
-		template: require("./../partials/app.layout.html")
+		template: require("./../partials/app.content.html")
 	}
 }

@@ -4,7 +4,7 @@
  */
 module.exports = function taskRoutes($stateProvider, $urlRouterProvider) {
 	$stateProvider
-		.state("cs.strip.task", {
+		.state("cs.admin.task", {
 			url: "/tasks",
 			template: require("./../partials/task.page.html"),
 			controller: "TaskController",

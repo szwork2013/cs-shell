@@ -1,11 +1,21 @@
+"use strict";
+/**
+ * Module dependencies.
+ */
+var angular = require("angular");
+
 /**
  * initializes angular controller cs.app.sidebar.controller.
  */
-module.exports = function sidebarCtrl($scope, sidebarService, $rootScope, $window, $){
-    
+module.exports = function sidebarController($scope, sidebarService, $rootScope, $window, $, $cookieStore){
+    /**
+     * Sidebar viewmodel;
+     */
     var sidebar = this;
-    sidebar.isMenuShown = true;
     
+    /**
+     * Sidebar menu items;
+     */
     sidebar.items = [
         {name: "Dashboard", icon:"fa-dashboard", state:"cs.dashboard.page"},
         {name: "Lists", icon:"fa-list", state:"cs.list.page"},
@@ -27,20 +37,33 @@ module.exports = function sidebarCtrl($scope, sidebarService, $rootScope, $windo
         $rootScope.$broadcast("cs:menu:item:selected:event", {route: route});
     }
     
-    $scope.$on("cs:menu:show:event", function(event, data){
-        sidebar.isMenuShown = data.isMenuShown;
+    /**
+     * Sidebar Toggle & Cookie Control
+     */
+    var mobileView = 992;
+
+    sidebar.getWidth = function() {
+        return $window.innerWidth;
+    };
+
+    sidebar.toggleSidebar = function() {
+        sidebar.toggle = !sidebar.toggle;
+        $cookieStore.put("toggle", sidebar.toggle);
+        
+        console.log("cs:sidebar:toggle:changed:" + sidebar.toggle + ":event:published");
+        $rootScope.$broadcast("cs:sidebar:toggle:changed:event", {toggle: sidebar.toggle});        
+    };
+
+    $scope.$watch(sidebar.getWidth, function(newValue, oldValue) {
+        if (newValue >= mobileView) {
+            if (angular.isDefined($cookieStore.get("toggle"))) {
+                sidebar.toggle = ! $cookieStore.get("toggle") ? false : true;
+            } else {
+                sidebar.toggle = true;
+            }
+        } else {
+            sidebar.toggle = false;
+        }
     });
-    
-    $($window).on("resize", function(){
-		if($window.innerWidth<760  && sidebar.isMenuShown ){
-			sidebar.isMenuShown = false;
-            $scope.$apply();
-		}
-        if($window.innerWidth>760  && !sidebar.isMenuShown ){
-			sidebar.isMenuShown = true;
-            $scope.$apply();
-		}
-	})
-    
 }
-module.exports.$inject = ["$scope", "SidebarService", "$rootScope","$window", "$"];
+module.exports.$inject = ["$scope", "SidebarService", "$rootScope","$window", "$", "$cookieStore"];

@@ -1,17 +1,29 @@
-<cs-sidebar>
-    <cs-menu>
-        <cs-menu-item label="Dashboard" icon="fa-dashboard" route="cs.dashboard"></cs-menu-item>
-        <cs-menu-item label="Tasks" icon="fa-tasks" route="cs.strip.task"></cs-menu-item>
-        <cs-menu-item label="Lists" icon="fa-list" route="cs.list.page"></cs-menu-item>
-        <cs-menu-item label="Boards" icon="fa-navicon" route="cs.board.page"></cs-menu-item>
-        <cs-menu-item label="Stars" icon="fa-star" route="cs.star.page"></cs-menu-item>
-        <cs-menu-item label="Tables" icon="fa-table" route="cs.table.page"></cs-menu-item>
-        <cs-menu-item label="Fields" icon="fa-minus" route="cs.field.page"></cs-menu-item>
-        <cs-menu-item label="Strips" icon="fa-sitemap" route="cs.strip.page"></cs-menu-item>           
-        <cs-menu-item label="Controls" icon="fa-sliders" route="cs.control.page"></cs-menu-item>
-        <cs-menu-item label="Users" icon="fa-users" route="cs.user.page"></cs-menu-item>
-        <cs-menu-item label="Members" icon="fa-cube" route="cs.member.page"></cs-menu-item>
-        <cs-menu-item label="Organisations" icon="fa-cubes" route="cs.organisation.page"></cs-menu-item>
-        <ng-transclude></ng-transclude>
-    </cs-menu>
-</cs-sidebar>
+<div id="sidebar-wrapper">
+    <ul class="sidebar">
+        <li class="sidebar-main">
+            <a ng-click="sidebar.toggleSidebar()">
+                Dashboard
+                <span class="menu-icon fa fa-exchange"></span>
+            </a>
+        </li>
+        <li class="sidebar-title"><span>NAVIGATION</span></li>
+    </ul>
+    <cs-transclude></cs-transclude>
+    <div class="sidebar-footer">
+        <div class="col-xs-4">
+            <a href="https://github.com/rdash/rdash-angular" target="_blank">
+                Github
+            </a>
+        </div>
+        <div class="col-xs-4">
+            <a href="https://github.com/rdash/rdash-angular/README.md" target="_blank">
+                About
+            </a>
+        </div>
+        <div class="col-xs-4">
+            <a href="#">
+                Support
+            </a>
+        </div>
+    </div>
+</div>

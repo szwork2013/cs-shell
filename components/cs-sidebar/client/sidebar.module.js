@@ -11,6 +11,5 @@ module.exports = function appSidebar(angular){
 		sidebar.controller("SidebarController", require("./controllers/sidebar.controller"));
 		sidebar.service("SidebarService", require("./services/sidebar.service"));
         sidebar.directive("csAppSidebar", require("./directives/sidebar.directive"));
-		sidebar.directive("csMenuItem", require("./directives/menu.item.directive"));
     return sidebar;
 }
