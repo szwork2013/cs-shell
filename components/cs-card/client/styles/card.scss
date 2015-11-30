@@ -1,0 +1,55 @@
+cs-card-panel {
+	
+	color: black !important;
+	
+	.panel-default {
+		margin-bottom: 0;
+	
+		.panel-heading {
+			span {
+				font-size: 15px;
+			}
+	
+			.btn-toolbar {
+				margin-top: -8px;
+				margin-right: -12px;
+				display: none;
+			}
+	
+			.truncate  {
+	
+				p {
+					/*width: 250px;*/
+					white-space: nowrap;
+					overflow: hidden;
+					-ms-text-overflow: ellipsis;
+					-o-text-overflow: ellipsis;
+					text-overflow: ellipsis;
+				}
+			}
+		}
+	}
+	
+	.panel-collapsed {
+		border-bottom: 0;
+	}
+	
+	.panel-expanded {
+		position: relative;
+	}
+	
+	.panel-expanded-overlay {
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		left: 0;
+		top: 0; // if there's a fixed header this should be equal to header height
+		z-index: 10;
+	}
+	
+	.panel-expanded-footer {
+		position:absolute;
+		width:100%;
+		bottom:0; // if there's a fixed footer this should be equeal to footer height
+	}
+}

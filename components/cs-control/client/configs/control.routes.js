@@ -4,12 +4,12 @@
  */
 module.exports = function controlRoutes($stateProvider, $urlRouterProvider) {
 	$stateProvider
-		.state("cs.control", {
+		.state("cs.admin.control", {
 			abstract: true,
 			url: "/control",
 			template: "<cs-page-layout ui-view></cs-page-layout>"
 		})
-		.state("cs.control.page", {
+		.state("cs.admin.control.page", {
 			url: "/page",
 			template: require("./../partials/control.page.html"),
 			controller: "ControlPageController",

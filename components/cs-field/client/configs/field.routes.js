@@ -4,12 +4,12 @@
  */
 module.exports = function fieldRoutes($stateProvider, $urlRouterProvider) {
 	$stateProvider
-		.state("cs.field", {
+		.state("cs.admin.field", {
 			abstract: true,
 			url: "/field",
 			template: "<cs-page-layout ui-view></cs-page-layout>"
 		})
-		.state("cs.field.page", {
+		.state("cs.admin.field.page", {
 			url: "/page",
 			template: require("./../partials/field.page.html"),
 			controller: "FieldPageController",

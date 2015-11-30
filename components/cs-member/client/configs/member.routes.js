@@ -4,12 +4,12 @@
  */
 module.exports = function memberRoutes($stateProvider, $urlRouterProvider) {
 	$stateProvider
-		.state("cs.member", {
+		.state("cs.admin.member", {
 			abstract: true,
 			url: "/member",
 			template: "<cs-page-layout ui-view></cs-page-layout>"
 		})
-		.state("cs.member.page", {
+		.state("cs.admin.member.page", {
 			url: "/page",
 			template: require("./../partials/member.page.html"),
 			controller: "MemberPageController",

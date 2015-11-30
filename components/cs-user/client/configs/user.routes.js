@@ -4,12 +4,12 @@
  */
 module.exports = function userRoutes($stateProvider, $urlRouterProvider) {
 	$stateProvider
-		.state("cs.user", {
+		.state("cs.admin.user", {
 			abstract: true,
 			url: "/user",
 			template: "<cs-page-layout ui-view></cs-page-layout>"
 		})
-		.state("cs.user.page", {
+		.state("cs.admin.user.page", {
 			url: "/page",
 			template: require("./../partials/user.page.html"),
 			controller: "UserPageController",

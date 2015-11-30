@@ -15,29 +15,29 @@
     </div>
     <div class="container-fluid" id="userList">
       <div class="row">
-        <div ng-repeat-start="u in market.users" ng-class="{'col-xs-4':market.mode==1, 'col-xs-3':market.mode==2, 'col-xs-6':market.mode==3}">
+        <div ng-repeat-start="marketItem in market.items" ng-class="{'col-xs-4':market.mode==1, 'col-xs-3':market.mode==2, 'col-xs-6':market.mode==3}">
           <div class="well">
-            <a href="" ng-click="market.showUserModal($index)"><img src="{{u.user.picture.medium}}" class="img-responsive"></a>
-            <h3 class="cap" ng-hide="market.mode==1">{{u.user.name.first}}</h3>
+            <a href="" ng-click="market.showUserModal($index)"><img ng-src="{{marketItem.image}}" class="img-responsive"></a>
+            <h3 class="cap" ng-hide="market.mode==1">{{marketItem.name}}</h3>
             <p ng-show="market.mode==3">
-              {{u.user.location.city}}, {{u.user.location.state}} {{u.user.location.zip}}<br>
-              {{u.user.phone}}
+              {{marketItem.description}}<br>
+              ${{marketItem.price}}
             </p>
           </div>
         </div>
         <div ng-class="{'col-xs-8':market.mode==1, 'col-xs-6':market.mode==3}" ng-hide="market.mode==2||market.mode==3">
-          <h2 class="cap">{{u.user.name.first}} {{u.user.name.last}} <i ng-show="u.user.gender=='female'" class="fa fa-female"></i><i ng-show="u.user.gender=='male'" class="fa fa-male"></i></h2>
+          <h2 class="cap">{{marketItem.name}} <i ng-show="u.user.gender=='female'" class="fa fa-female"></i><i ng-show="u.user.gender=='male'" class="fa fa-male"></i></h2>
           <div class="row">
               <div class="col-sm-6">
                 <p>
-                  {{u.user.location.city}}, {{u.user.location.state}} {{u.user.location.zip}}<br>
-                  {{u.user.phone}}
+                  {{marketItem.description}}<br>
+                  ${{marketItem.price}}
                 </p>
               </div>
               <div class="col-sm-6 text-right">
                 <div class="hidden-xs">
-                  <a href="">{{u.user.email}}</a><br>
-                  <h3><span class="label label-primary">{{u.user.username}}</span></h3>
+                  <a href="">@myapphero</a><br>
+                  <h3><span class="label label-primary">My App Hero</span></h3>
                 </div>
               </div>
           </div>

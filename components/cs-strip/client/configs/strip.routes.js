@@ -4,12 +4,12 @@
  */
 module.exports = function stripRoutes($stateProvider, $urlRouterProvider) {
 	$stateProvider
-		.state("cs.strip", {
+		.state("cs.admin.strip", {
 			abstract: true,
 			url: "/strip",
 			template: "<cs-page-layout ui-view></cs-page-layout>"
 		})
-		.state("cs.strip.page", {
+		.state("cs.admin.strip.page", {
 			url: "/page",
 			template: require("./../partials/strip.page.html"),
 			controller: "StripPageController",

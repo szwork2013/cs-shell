@@ -17,7 +17,13 @@ body {
     background: $background-light;
     font-family: "Open Sans", sans-serif;
     overflow-y: auto;
-    color: white !important;
+    color: white;
+}
+
+
+hr {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .nopadding {

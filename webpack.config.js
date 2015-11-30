@@ -5,26 +5,31 @@ var ComponentPlugin = require("component-webpack-plugin");
 var config = require("components/config");
 
 var webpackConfig = {  
-  devtool: "eval-source-map",
-    entry: [
-      "webpack-hot-middleware/client?reload=true",
-      path.join(config.paths.base, config.files.entry)
-    ],
-    output: {
-      path: config.paths.www,
-      filename: "index.js",
-      publicPath: "/"
-    },
-    resolve: {
-      alias: {
-        modules: path.join(__dirname, "node_modules")
-      }
-    },
+  devtool   : "inline-source-map",
+  debug     : true,
+  entry     : [
+    "webpack-hot-middleware/client?reload=true",
+    path.join(config.paths.base, config.files.entry)
+  ],
+  output    : {
+    path: config.paths.www,
+    filename: "index.js",
+    publicPath: "/"
+  },
+  resolve : {
+    alias: {
+			// bind version of jquery-ui
+			"jquery-ui": "jquery-ui/jquery-ui.js",      
+      // bind to modules;
+      modules: path.join(__dirname, "node_modules"),
+      components: path.join(__dirname, "components")
+    }
+  },
   plugins: [
     new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery",
-      "window.jQuery": "jquery"
+      "$":"jquery",
+      "jQuery":"jquery",
+      "window.jQuery":"jquery"
     }),
     new ComponentPlugin(),
     new HtmlWebpackPlugin({

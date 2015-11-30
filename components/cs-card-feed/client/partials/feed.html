@@ -1,0 +1,5 @@
+<ul class="list-unstyled padding-left-15 padding-right-15" ui-sortable="feed.sortableOptions" ng-model="feed.items">
+	<li ng-repeat="item in feed.items" style="margin-bottom:0px" ng-if="!(item.state==0)">
+		<div ng-include="item.name" />
+	</li>
+</ul>

@@ -1,0 +1,32 @@
+<div class="panel-heading">
+	<span class="pull-right btn-toolbar">
+		<div class="btn-group">
+			<button type="button" class="btn btn-default">
+				<i ng-class="card.handle"></i>
+			</button>
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="width:40px">
+				<i class="fa fa-cog"></i>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li ng-if"card.expandable"><a href="#" ng-click="card.expand();">Expand</a></li>
+				<li><a href="#">Set card name</a></li>
+				<li class="divider"></li>
+				<li><a href="#">Separated link</a></li>
+			</ul>
+		</div>
+		<div class="btn-group">
+			<button ng-if="card.expandable" ng-click="card.expand();" type="button" class="btn btn-default btn-expandable">
+				<i class="fa fa-expand"></i>
+			</button>
+			<button ng-if="card.hideable" ng-click="card.hide();" type="button" class="btn btn-default btn-hideable">
+				<i class="fa fa-remove"></i>
+			</button>
+			<button ng-if="card.collapsable" ng-click="card.collapse();" type="button" class="btn btn-default btn-collapsable">
+				<i class="fa fa-chevron-up"></i>
+			</button>
+		</div>
+	</span>
+	<span class="truncate">
+		<p cs-transclude></p>
+	</span>
+</div>

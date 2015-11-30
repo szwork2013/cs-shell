@@ -11,6 +11,7 @@ module.exports = function appModule($,angular,_, config){
     var app = angular.module("cs.app", [
         "agGrid",
         "ngScrollbar",
+        "ui.sortable",
 		require("angular-aria"),
 		require("angular-animate"),
 		require("angular-cookies"),
@@ -21,11 +22,14 @@ module.exports = function appModule($,angular,_, config){
 		require("angular-touch"), 
         require("angular-formly"),
         require("angular-formly-templates-bootstrap"),
-        require("angular-ui-router"),
+        
         require("angular-ui-bootstrap"),
+        require("angular-ui-router"),
         require("angular-gridster").name,
         
         require("components/cs-admin-page").name, 
+        require("components/cs-card").name, 
+        require("components/cs-card-feed").name, 
         require("components/cs-control").name,       
         require("components/cs-field").name,
         require("components/cs-footer").name, 

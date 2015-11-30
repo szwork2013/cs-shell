@@ -31,6 +31,7 @@ module.exports = function stripBaseController(vm, shell, service){
 		// publishes the add new strip event;
 		vm.shell.debug(vm.base + ":new:event:published:"+ strip.id);
 		vm.shell.postal.publish(args);
+		return strip;
 	}
 
 	/**
@@ -128,8 +129,10 @@ module.exports = function stripBaseController(vm, shell, service){
 	* selects a strip
 	*/
 	vm.selectStrip = function (strip){
+		console.log(strip);
+		// todo: assert strip is not null;
 		// checks if strip needs to be set;
-		if(!strip||strip.id===vm.shell.strip.selected[0].id) return;
+		//if(vm.shell.strip.selected.length!==0) return;
 		// sets strip;
 		vm.shell.strip.selected[0] = strip;
 		// sets select strip event arguments;
